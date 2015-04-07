@@ -106,11 +106,9 @@ HashTableVoidIterator::HashTableVoidIterator(HashTableVoid * hashTable)
 // Returns true if there is a next element. Stores data value in data.
 bool HashTableVoidIterator::next(const char * & key, void * & data)
 {
-
-          fprintf(stderr, "here");
   for (int i = 0; i < 2039; i++) {
       if(_hashTable->_buckets[i] != NULL) {
-          fprintf(stderr, "here");
+          fprintf(stderr, "here\n");
           data = _currentEntry->_data;
           return true;
       }
