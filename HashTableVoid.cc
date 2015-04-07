@@ -3,7 +3,7 @@
 // Implementation of a HashTable that stores void *
 //
 #include "HashTableVoid.h"
-
+#include <stdio.h>
 // Obtain the hash code of a key
 int HashTableVoid::hash(const char * key)
 {
@@ -108,12 +108,11 @@ bool HashTableVoidIterator::next(const char * & key, void * & data)
 {
   for (int i = 0; i < 2039; i++) {
       if(_hashTable->_buckets[i] != NULL) {
+            printf("found a match");
           data = _currentEntry->_data;
           return true;
       }
 }
-
-
   return false;
 }
 
