@@ -301,3 +301,6 @@ After doing this, you may fix the identity used for this commit with:
  3 files changed, 3 insertions(+)
 [master 0625825] Make IRCServer
  1 file changed, 2 insertions(+)
+[master 778255f] Make IRCServer
+ 3 files changed, 3 insertions(+)
+ rewrite HashTableVoidTest (70%)
