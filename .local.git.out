@@ -304,3 +304,6 @@ After doing this, you may fix the identity used for this commit with:
 [master 778255f] Make IRCServer
  3 files changed, 3 insertions(+)
  rewrite HashTableVoidTest (70%)
+[master 4dd1719] Make IRCServer
+ 3 files changed, 4 insertions(+), 1 deletion(-)
+ rewrite HashTableVoidTest (79%)

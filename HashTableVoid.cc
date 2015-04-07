@@ -108,7 +108,7 @@ bool HashTableVoidIterator::next(const char * & key, void * & data)
 {
   for (; _currentBucket < 2039; _currentBucket++) {
       if((_currentEntry = _hashTable->_buckets[_currentBucket]) != NULL) {
-          fprintf(stderr, "here");
+          fprintf(stderr, "%d", _currentBucket);
           data = _currentEntry->_data;
           key = _currentEntry->_key;
           return true;
