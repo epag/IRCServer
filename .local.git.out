@@ -318,3 +318,7 @@ After doing this, you may fix the identity used for this commit with:
  create mode 100644 prog.org.out
  create mode 100644 prog.out
  create mode 100644 total.out
+[master 454d62e] Make IRCServer
+ 5 files changed, 13 insertions(+), 1 deletion(-)
+ rename .HashTableVoid.h.swp => .IRCServer.h.swp (85%)
+ rewrite IRCServer (76%)
