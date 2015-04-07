@@ -108,7 +108,7 @@ bool HashTableVoidIterator::next(const char * & key, void * & data)
 {
   for (int i = 0; i < 2039; i++) {
       if(_hashTable->_buckets[i] != NULL) {
-            printf("found a match");
+          fprintf(stderr, "here");
           data = _currentEntry->_data;
           return true;
       }
