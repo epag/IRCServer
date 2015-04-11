@@ -223,12 +223,14 @@ IRCServer::processRequest( int fd )
         printf("%c", commandLine[i]);
         i++;
     }
+    command[i] = '\0';
     i++;
     while (commandLine[i] != ' ') {
         user[j] = commandLine[i];
         i++;
         j++;
     }
+    user[j] = '\0';
     j = 0;
     i++;
     while (commandLine[i] != ' ') {
@@ -236,6 +238,7 @@ IRCServer::processRequest( int fd )
         i++;
         j++;
     }
+    password[j] = '\0';
     j = 0;
     i++;
     while (commandLine[i] != '\0') {
@@ -243,6 +246,7 @@ IRCServer::processRequest( int fd )
         i++;
         j++;
     }
+    args[j] = '\0';
 
 
 	printf("command=%s\n", command);
