@@ -284,7 +284,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     fprintf(file, "%s %s\n", u.name, u.password);
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
-
+    fclose(file);
 	return;		
 }
 
