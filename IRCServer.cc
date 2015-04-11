@@ -220,7 +220,6 @@ IRCServer::processRequest( int fd )
 
     while (commandLine[i] != ' ') {
         command[i] = commandLine[i];
-        printf("%c", commandLine[i]);
         i++;
     }
     command[i] = '\0';
@@ -241,6 +240,7 @@ IRCServer::processRequest( int fd )
     password[j] = '\0';
     j = 0;
     i++;
+    args[j] = '\0';
     while (commandLine[i] != '\0') {
         args[j] = commandLine[i];
         i++;
