@@ -220,6 +220,7 @@ IRCServer::processRequest( int fd )
 
     while (commandLine[i] != ' ') {
         command[i] = commandLine[i];
+        printf("%d", commandLine[i]);
         i++;
     }
     i++;
