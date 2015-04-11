@@ -259,7 +259,6 @@ void
 IRCServer::initialize()
 {
 	// Open password file
-    FILE * passwordFolder = fopen("passwords.txt", "a+");
 
 	// Initialize users in room
     
