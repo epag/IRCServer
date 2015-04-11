@@ -329,7 +329,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
         if (!strcmp(name, user)) {
-            char * rsp = "Name already taken\r\n";
+            const char * rsp = "Name already taken\r\n";
             write (fd, rsp, strlen(rsp));
             fclose(file);
             return;
