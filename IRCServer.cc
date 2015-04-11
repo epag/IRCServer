@@ -259,7 +259,7 @@ void
 IRCServer::initialize()
 {
 	// Open password file
-
+    FILE * file = fopen("passwords.txt", "w+");
 	// Initialize users in room
     
 
@@ -270,12 +270,19 @@ IRCServer::initialize()
 bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	// Here check the password
+
+    char name[50], passworded[50];
+    FILE * file = fopen("passwords.txt", "r");
+
+    fscanf(file, "%s %s", name, passworded);
+
 	return true;
 }
 
 void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
+
     FILE * file = fopen("passwords.txt", "w+");
 	// Here add a new user. For now always return OK.
     User u;
