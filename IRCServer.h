@@ -15,9 +15,14 @@ public:
 
     typedef struct{
         char * roomName;
-        char ** messages;
-        char ** senders;
+        struct Message * start;
     } Room;
+
+    typedef struct{
+        char * msg;
+        char * snder;
+        Message * next;
+    } Message;
 
 private:
 	int open_server_socket(int port);
