@@ -282,6 +282,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     User u;
     u.name = strdup(user);
     u.password = strdup(password);
+    fprintf(passwordFolder, "%s %s\n", u.name, u.password);
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
 
