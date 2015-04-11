@@ -311,7 +311,7 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
             return true;
         }
     }
-    const char * msg = "Incorrect password";
+    const char * msg = "Incorrect password\n";
     write (fd, msg, strlen(msg));
 	return false;
 }
