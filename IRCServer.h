@@ -13,6 +13,12 @@ public:
         char * password;
         } User;
 
+    typedef struct{
+        char * roomName;
+        char ** messages;
+        char ** senders;
+    } Room;
+
 private:
 	int open_server_socket(int port);
 
