@@ -271,12 +271,16 @@ bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
 	// Here check the password
 
-    char name[50], passworded[50];
+    char name[50], passworded[50], holder[100];
     FILE * file = fopen("passwords.txt", "r");
-
-    fscanf(file, "%s %s", name, passworded);
-
-	return true;
+    
+    while (fgets(holder, 100, file)) {
+        sscanf (holder, "%s %s \n", name, passworded);
+        if (!strcmp(name, user) && !strcmp(password, passworded)) {
+            return true;
+        }
+    }
+	return false;
 }
 
 void

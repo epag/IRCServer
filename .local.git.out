@@ -381,3 +381,6 @@ After doing this, you may fix the identity used for this commit with:
  1 file changed, 4 insertions(+)
 [master a43a889] Make IRCServer
  3 files changed, 3 insertions(+), 1 deletion(-)
+[master ac82710] Make IRCServer
+ 4 files changed, 11 insertions(+), 1 deletion(-)
+ rewrite IRCServer (71%)
