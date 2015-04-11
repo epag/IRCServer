@@ -29,7 +29,7 @@ const char * usage =
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
-
+#include "LinkedList.c"
 #include "IRCServer.h"
 
 int QueueLength = 5;
