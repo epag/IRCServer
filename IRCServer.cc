@@ -240,7 +240,7 @@ IRCServer::processRequest( int fd )
     password[j] = '\0';
     j = 0;
     i++;
-    args[j] = '\0';
+    args[j] = ' ';
     while (commandLine[i] != '\0') {
         args[j] = commandLine[i];
         i++;
