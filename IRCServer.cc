@@ -237,7 +237,7 @@ IRCServer::processRequest( int fd )
     }
     j = 0;
     i++;
-    while (commandLine[i] != '\0') {
+    while (i < commandLineLength) {
         args[j] = commandLine[i];
         i++;
         j++;
