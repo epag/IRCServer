@@ -311,6 +311,8 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
             return true;
         }
     }
+    const char * msg = "Incorrect password";
+    write (fd, msg, strlen(msg));
 	return false;
 }
 
@@ -373,10 +375,14 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 {
     FILE * file = fopen("passwords.txt", "r");
     char holder[100], name[50];
+    
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
-        char * newline = " \n";
+        const char * newline = " \n";
         write (fd, name, strlen(name));
         write (fd, newline, strlen(newline));
      }
