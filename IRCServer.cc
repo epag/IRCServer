@@ -278,7 +278,8 @@ void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 	// Here add a new user. For now always return OK.
-
+    User u;
+    u.name = strdup(user);
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
 
