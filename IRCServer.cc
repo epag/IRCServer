@@ -259,7 +259,7 @@ void
 IRCServer::initialize()
 {
 	// Open password file
-    FILE * password = fopen("passwords.txt", "a+");
+    FILE * passwordFolder = fopen("passwords.txt", "a+");
 
 	// Initialize users in room
     
@@ -277,7 +277,7 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
-    initialize();
+    FILE * passwordFolder = fopen("passwords.txt", "a+");
 	// Here add a new user. For now always return OK.
     User u;
     u.name = strdup(user);
