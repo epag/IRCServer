@@ -276,13 +276,13 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
-    FILE * passwordFolder = fopen("passwords.txt", "w+");
+    FILE * file = fopen("passwords.txt", "w+");
 	// Here add a new user. For now always return OK.
     User u;
     u.name = strdup(user);
     u.password = strdup(password);
-    fprintf(passwordFolder, "%s %s\n", u.name, u.password);
-	const char * msg =  "caitlin sounds like a dude\r\n";
+    fprintf(file, "%s %s\n", u.name, u.password);
+	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
 
 	return;		
