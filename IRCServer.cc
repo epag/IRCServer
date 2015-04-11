@@ -347,7 +347,8 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
-    
+    Room * r = NULL;
+    r->roomName = strdup(args);
 }
 
 void
