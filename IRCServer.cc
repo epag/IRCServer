@@ -29,7 +29,6 @@ const char * usage =
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
-#include "LinkedList.c"
 #include "IRCServer.h"
 
 int QueueLength = 5;
@@ -372,6 +371,13 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 void
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
 {
+    FILE * file = fopen("passwords.txt", "r");
+    char holder[100], name[50];
 
+    while (fgets(holder, 100, file)) {
+        sscanf (holder, "%s\n", name);
+        write(fd, name, strlen(name));
+     }
+     fclose(file);
 }
 
