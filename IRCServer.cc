@@ -320,7 +320,7 @@ void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 
-    FILE * file = fopen("passwords.txt", "w+");
+    FILE * file = fopen("passwords.txt", "a+");
 	// Here add a new user. For now always return OK.
     User u;
     u.name = strdup(user);
