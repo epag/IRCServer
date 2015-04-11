@@ -308,7 +308,6 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
     
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s %s \n", name, passworded);
-        printf("%s %s\n", name, passworded);
         if (!strcmp(name, user) && !strcmp(password, passworded)) {
             return true;
         }
@@ -325,6 +324,18 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     User u;
     u.name = strdup(user);
     u.password = strdup(password);
+    char holder[100], name[50];
+
+    while (fgets(holder, 100, file)) {
+        sscanf (holder, "%s\n", name);
+        if (!strcmp(name, user)) {
+            char * rsp = "Name already taken\r\n";
+            write (fd, rsp, strlen(rsp));
+            fclose(file);
+            return;
+        }
+    }
+    
     fprintf(file, "%s %s\n", u.name, u.password);
 	const char * msg =  "OK\r\n";
 	write(fd, msg, strlen(msg));
