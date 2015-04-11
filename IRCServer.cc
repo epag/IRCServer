@@ -203,7 +203,7 @@ IRCServer::processRequest( int fd )
 	// Add null character at the end of the string
 	// Eliminate last \r
 	commandLineLength--;
-        commandLine[ commandLineLength ] = 0;
+        commandLine[ commandLineLength ] = '\0';
 
 	printf("RECEIVED: %s\n", commandLine);
 
