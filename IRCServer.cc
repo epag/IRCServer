@@ -416,6 +416,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     const char * msg =  "No room with that name exists! I created one for you!\r\n";
     write(fd, msg, strlen(msg));
+    r = referenceRoom;
     while (r->nextRoom != NULL) {
         r = r->nextRoom;
     }
