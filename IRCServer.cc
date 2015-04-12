@@ -425,7 +425,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     Chatter * it = r->inRoom;
     while (r != NULL) {
-        if (strcmp(args, r->roomName)) {
+        if (!strcmp(args, r->roomName)) {
             if (r->inRoom == NULL) {
                 r->inRoom = n;
 
