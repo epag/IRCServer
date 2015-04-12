@@ -381,7 +381,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
 
 
     if (referenceRoom == NULL) {
-        const char * msg =  "No room with that name exists! I created one for you!\r\n";
+        const char * msg =  "OK\r\n";
 
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
@@ -389,7 +389,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
         referenceRoom = newRoom;
         return;
     }
-    const char * msg =  "No room with that name exists! I created one for you!\r\n";
+    const char * msg =  "OK\r\n";
     write(fd, msg, strlen(msg));
     r = referenceRoom;
     while (r->nextRoom != NULL) {
