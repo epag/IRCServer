@@ -416,16 +416,14 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     const char * msg =  "No room with that name exists! I created one for you!\r\n";
     write(fd, msg, strlen(msg));
-    while (r != NULL) {
+    while (r->nextRoom != NULL) {
         r = r->nextRoom;
     }
-
-    r->roomName = strdup(args);
-
-    write(fd, msg, strlen(msg));
-    r->inRoom = n;
+    
+    r->nextRoom = newRoom;
+    newRoom->roomName = strdup(args);
+    newRoom->inRoom = n;
     n->name = strdup(user);
-    r->nextRoom = NULL;
     n->next = NULL;
     return;		
 }
