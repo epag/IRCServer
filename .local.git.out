@@ -604,3 +604,6 @@ After doing this, you may fix the identity used for this commit with:
  rewrite passwords.txt (97%)
 [master 182e5e2] Make IRCServer
  3 files changed, 6 insertions(+), 2 deletions(-)
+[master 220d5d5] Make IRCServer
+ 4 files changed, 32 insertions(+), 12 deletions(-)
+ rewrite IRCServer (71%)
