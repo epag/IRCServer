@@ -505,6 +505,7 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
     if (r->msgnum == 99) {
         r->msgnum--;
     }
+    r->msgnum++;
 }
 
     void
