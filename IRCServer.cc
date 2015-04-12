@@ -384,9 +384,12 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     n->name = strdup(user);
 
     if (referenceRoom == NULL) {
+        const char * msg =  "No room with that name exists! I created one for you!\r\n";
+        write(fd, msg, strlen(msg));
         referenceRoom = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
+        fclose(file);
         return;
     }
 
