@@ -376,10 +376,10 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     if (!checkPassword(fd, user, password)) {
         return;
     }
-    
+    printf("start\n"); 
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
-    Chatter * n = (Chatter *) malloc(sizeof(Chatter));printf("here");
+    Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
     
     if (referenceRoom->roomStart == NULL) {
