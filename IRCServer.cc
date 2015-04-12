@@ -366,7 +366,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     return;		
 }
 
-void
+    void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
     if (!checkPassword(fd, user, password)) {
@@ -388,16 +388,16 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         if (!strcmp(name, args)) {
             const char * rsp = "Welcome to the room!\r\n";
             while (strcmp(args, r->roomName)) {
-            if (r->inRoom == NULL){
-                r->inRoom = n;
-            } else {
-                n = r->inRoom;
-                while (n != NULL) {
-                    n = n->next;
+                if (r->inRoom == NULL){
+                    r->inRoom = n;
+                } else {
+                    n = r->inRoom;
+                    while (n != NULL) {
+                        n = n->next;
+                    }
+                    n->name = strdup(user);
                 }
-                n->name = strdup(user);
-            }
-            r = r->nextRoom;
+                r = r->nextRoom;
             }
             write (fd, rsp, strlen(rsp));
             fclose(file);
@@ -411,6 +411,8 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     while (r != NULL) {
         r = r->nextRoom;
     }
+
+    write(fd, msg, strlen(msg));
     r->roomName = strdup(args);
     r->inRoom = n;
     n->name = strdup(user);
