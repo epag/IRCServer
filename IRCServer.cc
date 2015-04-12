@@ -387,6 +387,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         referenceRoom = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
+        return;
     }
 
     while (fgets(holder, 100, file)) {
