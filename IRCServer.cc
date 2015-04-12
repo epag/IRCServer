@@ -348,6 +348,9 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
+    if (!checkPassword(fd, user, password)) {
+        return;
+    }
     FILE * file = fopen("open_rooms.txt", "a+");
 	// Here add a new user. For now always return OK.
     Room r;
