@@ -379,14 +379,6 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
         return;
     }
     Room * r = referenceRoom;
-    while (r->nextRoom != NULL) { 
-        if (!strcmp(args, r->roomName)) {
-            const char * msg = "Room already exists\n";
-            write (fd, msg, strlen(msg));
-            return;
-        }
-        r = r->nextRoom;
-    }
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
     newRoom->msgnum = 0;
@@ -403,6 +395,15 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
         referenceRoom = newRoom;
         return;
     }
+    while (r->nextRoom != NULL) { 
+        if (!strcmp(args, r->roomName)) {
+            const char * msg = "Room already exists\n";
+            write (fd, msg, strlen(msg));
+            return;
+        }
+        r = r->nextRoom;
+    }
+
     const char * msg =  "OK\r\n";
     write(fd, msg, strlen(msg));
     r = referenceRoom;
