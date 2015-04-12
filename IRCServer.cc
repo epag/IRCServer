@@ -45,7 +45,7 @@ struct Room
     int msgnum;
     Chatter * inRoom;
     Room * nextRoom;
-    char Message[100][1000];
+    char * Message[100];
     char * sender[100];
 };
 
@@ -456,6 +456,9 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     void
 IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args)
 {
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
     Room * r = referenceRoom;
 
     while (strcmp(args, r->roomName) == 1) {
@@ -483,23 +486,22 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
     void
 IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args, const char * message)
 {
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
     Room * r = referenceRoom;
     while (strcmp(args, r->roomName) == 1) {
         r = r->nextRoom;
     }
 
     if (r->msgnum == 99) {
-        for (int i = 0; i < 98; i ++) {
-            for (int j = 0; j < 1000; j++) {
-                r->Message[i][j] = r->Message[i+1][j];
-            }
+        for (int i = 0; i < 99; i ++) {
+                r->Message[i] = r->Message[i+1];
                 r->sender[i] = strdup(user);
         }
     }
-    for (int j = 0; j < 1000; j++) {
-        r->Message[r->msgnum][j] = message[j];
+        r->Message[r->msgnum] = strdup(message);
         r->sender[r->msgnum] = strdup(user);
-    }
     if (r->msgnum == 99) {
         r->msgnum--;
     }
@@ -508,11 +510,22 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
     void
 IRCServer::getMessages(int fd, const char * user, const char * password, const char * args)
 {
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
+    Room * r = referenceRoom;
+    while (strcmp(args, r->roomName) == 1) {
+        r = r->nextRoom;
+    }
+
 }
 
     void
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
     Room * r = referenceRoom;
     while (strcmp(args, r->roomName) == 1) {
         r = r->nextRoom;
