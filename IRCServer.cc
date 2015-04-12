@@ -390,7 +390,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         write(fd, msg, strlen(msg));
-        newRoom->nextRoom = referenceRoom->start;
+        printf("here\n");
         referenceRoom->start = newRoom;
         return;
     }
