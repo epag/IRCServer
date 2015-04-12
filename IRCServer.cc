@@ -395,7 +395,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
         referenceRoom = newRoom;
         return;
     }
-    while (r->nextRoom != NULL) { 
+    while (r != NULL) { 
         if (!strcmp(args, r->roomName)) {
             const char * msg = "Room already exists\n";
             write (fd, msg, strlen(msg));
