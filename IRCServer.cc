@@ -347,8 +347,27 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
-    Room * r = NULL;
-    r->roomName = strdup(args);
+    FILE * file = fopen("open_rooms.txt", "w+");
+	// Here add a new user. For now always return OK.
+    Room r;
+    r.roomName = strdup(user);
+    char holder[100], name[50];
+
+    while (fgets(holder, 100, file)) {
+        sscanf (holder, "%s\n", name);
+        if (!strcmp(name, user)) {
+            const char * rsp = "Welcome to the room!\r\n";
+            write (fd, rsp, strlen(rsp));
+            fclose(file);
+            return;
+        }
+    }
+    
+    fprintf(file, "%s %s\n", args);
+	const char * msg =  "No room with that name exists! I created one for you!\r\n";
+	write(fd, msg, strlen(msg));
+    fclose(file);
+	return;		
 }
 
 void
