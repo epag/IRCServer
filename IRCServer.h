@@ -4,31 +4,38 @@
 
 #define PASSWORD_FILE "password.txt"
 
+
+
+
+
+
 class IRCServer {
 	// Add any variables you need
 
 public:
-    typedef struct{
+/*    typedef struct User{
         char * name;
         char * password;
         } User;
 
-    typedef struct{
-        char * roomName;
-        struct Message * start;
-        struct Chatter * inRoom;
-    } Room;
-
-    typedef struct {
+    typedef struct Chatter{
         char * name;
-        struct Chatter * next;
+        Chatter * next;
     } Chatter;
 
-    typedef struct{
+    typedef struct Message{
         char * msg;
         char * snder;
         Message * next;
     } Message;
+
+    typedef struct Room{
+        char * roomName;
+        Message * start;
+        Chatter * inRoom;
+        Room * nextRoom;
+    } Room;
+*/
 
 private:
 	int open_server_socket(int port);
