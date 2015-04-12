@@ -376,18 +376,12 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     if (!checkPassword(fd, user, password)) {
         return;
     }
-    Room * r = referenceRoom->roomStart;
+    
     Room * newRoom = (Room *) malloc(sizeof(Room));
-    // Here add a new user. For now always return OK.
-
-
-
     char holder[100], name[50];
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
-
-
-    if (r == NULL) {
+    if (referenceRoom == NULL) {
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
         referenceRoom->roomStart = newRoom;
         newRoom->roomName = strdup(args);
@@ -395,6 +389,8 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         write(fd, msg, strlen(msg));
         return;
     }
+    // Here add a new user. For now always return OK.
+    Room * r = referenceRoom->roomStart;
 
     Chatter * it = r->inRoom;
     while (r != NULL) {
