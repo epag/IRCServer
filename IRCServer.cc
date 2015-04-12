@@ -59,89 +59,89 @@ Room * referenceRoom;
 int
 IRCServer::open_server_socket(int port) {
 
-	// Set the IP address and port for this server
-	struct sockaddr_in serverIPAddress; 
-	memset( &serverIPAddress, 0, sizeof(serverIPAddress) );
-	serverIPAddress.sin_family = AF_INET;
-	serverIPAddress.sin_addr.s_addr = INADDR_ANY;
-	serverIPAddress.sin_port = htons((u_short) port);
-  
-	// Allocate a socket
-	int masterSocket =  socket(PF_INET, SOCK_STREAM, 0);
-	if ( masterSocket < 0) {
-		perror("socket");
-		exit( -1 );
-	}
+    // Set the IP address and port for this server
+    struct sockaddr_in serverIPAddress; 
+    memset( &serverIPAddress, 0, sizeof(serverIPAddress) );
+    serverIPAddress.sin_family = AF_INET;
+    serverIPAddress.sin_addr.s_addr = INADDR_ANY;
+    serverIPAddress.sin_port = htons((u_short) port);
 
-	// Set socket options to reuse port. Otherwise we will
-	// have to wait about 2 minutes before reusing the sae port number
-	int optval = 1; 
-	int err = setsockopt(masterSocket, SOL_SOCKET, SO_REUSEADDR, 
-			     (char *) &optval, sizeof( int ) );
-	
-	// Bind the socket to the IP address and port
-	int error = bind( masterSocket,
-			  (struct sockaddr *)&serverIPAddress,
-			  sizeof(serverIPAddress) );
-	if ( error ) {
-		perror("bind");
-		exit( -1 );
-	}
-	
-	// Put socket in listening mode and set the 
-	// size of the queue of unprocessed connections
-	error = listen( masterSocket, QueueLength);
-	if ( error ) {
-		perror("listen");
-		exit( -1 );
-	}
+    // Allocate a socket
+    int masterSocket =  socket(PF_INET, SOCK_STREAM, 0);
+    if ( masterSocket < 0) {
+        perror("socket");
+        exit( -1 );
+    }
 
-	return masterSocket;
+    // Set socket options to reuse port. Otherwise we will
+    // have to wait about 2 minutes before reusing the sae port number
+    int optval = 1; 
+    int err = setsockopt(masterSocket, SOL_SOCKET, SO_REUSEADDR, 
+            (char *) &optval, sizeof( int ) );
+
+    // Bind the socket to the IP address and port
+    int error = bind( masterSocket,
+            (struct sockaddr *)&serverIPAddress,
+            sizeof(serverIPAddress) );
+    if ( error ) {
+        perror("bind");
+        exit( -1 );
+    }
+
+    // Put socket in listening mode and set the 
+    // size of the queue of unprocessed connections
+    error = listen( masterSocket, QueueLength);
+    if ( error ) {
+        perror("listen");
+        exit( -1 );
+    }
+
+    return masterSocket;
 }
 
-void
+    void
 IRCServer::runServer(int port)
 {
-	int masterSocket = open_server_socket(port);
+    int masterSocket = open_server_socket(port);
 
-	initialize();
-	
-	while ( 1 ) {
-		
-		// Accept incoming connections
-		struct sockaddr_in clientIPAddress;
-		int alen = sizeof( clientIPAddress );
-		int slaveSocket = accept( masterSocket,
-					  (struct sockaddr *)&clientIPAddress,
-					  (socklen_t*)&alen);
-		
-		if ( slaveSocket < 0 ) {
-			perror( "accept" );
-			exit( -1 );
-		}
-		
-		// Process request.
-		processRequest( slaveSocket );		
-	}
+    initialize();
+
+    while ( 1 ) {
+
+        // Accept incoming connections
+        struct sockaddr_in clientIPAddress;
+        int alen = sizeof( clientIPAddress );
+        int slaveSocket = accept( masterSocket,
+                (struct sockaddr *)&clientIPAddress,
+                (socklen_t*)&alen);
+
+        if ( slaveSocket < 0 ) {
+            perror( "accept" );
+            exit( -1 );
+        }
+
+        // Process request.
+        processRequest( slaveSocket );		
+    }
 }
 
-int
+    int
 main( int argc, char ** argv )
 {
-	// Print usage if not enough arguments
-	if ( argc < 2 ) {
-		fprintf( stderr, "%s", usage );
-		exit( -1 );
-	}
-	
-	// Get the port from the arguments
-	int port = atoi( argv[1] );
+    // Print usage if not enough arguments
+    if ( argc < 2 ) {
+        fprintf( stderr, "%s", usage );
+        exit( -1 );
+    }
 
-	IRCServer ircServer;
+    // Get the port from the arguments
+    int port = atoi( argv[1] );
 
-	// It will never return
-	ircServer.runServer(port);
-	
+    IRCServer ircServer;
+
+    // It will never return
+    ircServer.runServer(port);
+
 }
 
 //
@@ -189,51 +189,51 @@ main( int argc, char ** argv )
 //            \r\n
 //
 
-void
+    void
 IRCServer::processRequest( int fd )
 {
-	// Buffer used to store the comand received from the client
-	const int MaxCommandLine = 1024;
-	char commandLine[ MaxCommandLine + 1 ];
-	int commandLineLength = 0;
-	int n;
-	
-	// Currently character read
-	unsigned char prevChar = 0;
-	unsigned char newChar = 0;
-	
-	//
-	// The client should send COMMAND-LINE\n
-	// Read the name of the client character by character until a
-	// \n is found.
-	//
+    // Buffer used to store the comand received from the client
+    const int MaxCommandLine = 1024;
+    char commandLine[ MaxCommandLine + 1 ];
+    int commandLineLength = 0;
+    int n;
 
-	// Read character by character until a \n is found or the command string is full.
-	while ( commandLineLength < MaxCommandLine &&
-		read( fd, &newChar, 1) > 0 ) {
+    // Currently character read
+    unsigned char prevChar = 0;
+    unsigned char newChar = 0;
 
-		if (newChar == '\n' && prevChar == '\r') {
-			break;
-		}
-		
-		commandLine[ commandLineLength ] = newChar;
-		commandLineLength++;
+    //
+    // The client should send COMMAND-LINE\n
+    // Read the name of the client character by character until a
+    // \n is found.
+    //
 
-		prevChar = newChar;
-	}
-	
-	// Add null character at the end of the string
-	// Eliminate last \r
-	commandLineLength--;
-        commandLine[ commandLineLength ] = '\0';
+    // Read character by character until a \n is found or the command string is full.
+    while ( commandLineLength < MaxCommandLine &&
+            read( fd, &newChar, 1) > 0 ) {
 
-	printf("RECEIVED: %s\n", commandLine);
+        if (newChar == '\n' && prevChar == '\r') {
+            break;
+        }
 
-	printf("The commandLine has the following format:\n");
-	printf("COMMAND <user> <password> <arguments>. See below.\n");
-	printf("You need to separate the commandLine into those components\n");
-	printf("For now, command, user, and password are hardwired.\n");
-    
+        commandLine[ commandLineLength ] = newChar;
+        commandLineLength++;
+
+        prevChar = newChar;
+    }
+
+    // Add null character at the end of the string
+    // Eliminate last \r
+    commandLineLength--;
+    commandLine[ commandLineLength ] = '\0';
+
+    printf("RECEIVED: %s\n", commandLine);
+
+    printf("The commandLine has the following format:\n");
+    printf("COMMAND <user> <password> <arguments>. See below.\n");
+    printf("You need to separate the commandLine into those components\n");
+    printf("For now, command, user, and password are hardwired.\n");
+
     int i = 0, j = 0;
     char command[50];
     char user[50];
@@ -271,65 +271,65 @@ IRCServer::processRequest( int fd )
     args[j] = '\0';
 
 
-	printf("command=%s\n", command);
-	printf("user=%s\n", user);
-	printf( "password=%s\n", password );
-	printf("args=%s\n", args);
+    printf("command=%s\n", command);
+    printf("user=%s\n", user);
+    printf( "password=%s\n", password );
+    printf("args=%s\n", args);
 
-	if (!strcmp(command, "ADD-USER")) {
-		addUser(fd, user, password, args);
-	}
-	else if (!strcmp(command, "ENTER-ROOM")) {
-		enterRoom(fd, user, password, args);
-	}
-	else if (!strcmp(command, "LEAVE-ROOM")) {
-		leaveRoom(fd, user, password, args);
-	}
-	else if (!strcmp(command, "SEND-MESSAGE")) {
-		sendMessage(fd, user, password, args);
-	}
-	else if (!strcmp(command, "GET-MESSAGES")) {
-		getMessages(fd, user, password, args);
-	}
-	else if (!strcmp(command, "GET-USERS-IN-ROOM")) {
-		getUsersInRoom(fd, user, password, args);
-	}
-	else if (!strcmp(command, "GET-ALL-USERS")) {
-		getAllUsers(fd, user, password, args);
-	}
-	else {
-		const char * msg =  "UNKNOWN COMMAND\r\n";
-		write(fd, msg, strlen(msg));
-	}
+    if (!strcmp(command, "ADD-USER")) {
+        addUser(fd, user, password, args);
+    }
+    else if (!strcmp(command, "ENTER-ROOM")) {
+        enterRoom(fd, user, password, args);
+    }
+    else if (!strcmp(command, "LEAVE-ROOM")) {
+        leaveRoom(fd, user, password, args);
+    }
+    else if (!strcmp(command, "SEND-MESSAGE")) {
+        sendMessage(fd, user, password, args);
+    }
+    else if (!strcmp(command, "GET-MESSAGES")) {
+        getMessages(fd, user, password, args);
+    }
+    else if (!strcmp(command, "GET-USERS-IN-ROOM")) {
+        getUsersInRoom(fd, user, password, args);
+    }
+    else if (!strcmp(command, "GET-ALL-USERS")) {
+        getAllUsers(fd, user, password, args);
+    }
+    else {
+        const char * msg =  "UNKNOWN COMMAND\r\n";
+        write(fd, msg, strlen(msg));
+    }
 
-	// Send OK answer
-	//const char * msg =  "OK\n";
-	//write(fd, msg, strlen(msg));
+    // Send OK answer
+    //const char * msg =  "OK\n";
+    //write(fd, msg, strlen(msg));
 
-	close(fd);	
+    close(fd);	
 }
 
 
-void
+    void
 IRCServer::initialize()
 {
-	// Open password file
+    // Open password file
     fopen("passwords.txt", "a+");
-	// Initialize users in room
+    // Initialize users in room
     referenceRoom = (Room *) malloc(sizeof(Room));
     fopen("open_rooms.txt", "w+");
 
-	// Initalize message list
+    // Initalize message list
 
 }
 
 bool
 IRCServer::checkPassword(int fd, const char * user, const char * password) {
-	// Here check the password
+    // Here check the password
 
     char name[50], passworded[50], holder[100];
     FILE * file = fopen("passwords.txt", "r");
-    
+
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s %s \n", name, passworded);
         if (!strcmp(name, user) && !strcmp(password, passworded)) {
@@ -338,15 +338,15 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
     }
     const char * msg = "Incorrect password\n";
     write (fd, msg, strlen(msg));
-	return false;
+    return false;
 }
 
-void
+    void
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 
     FILE * file = fopen("passwords.txt", "a+");
-	// Here add a new user. For now always return OK.
+    // Here add a new user. For now always return OK.
     char holder[100], name[50];
 
     while (fgets(holder, 100, file)) {
@@ -358,15 +358,15 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
             return;
         }
     }
-    
+
     fprintf(file, "%s %s\n", name, password);
-	const char * msg =  "OK\r\n";
-	write(fd, msg, strlen(msg));
+    const char * msg =  "OK\r\n";
+    write(fd, msg, strlen(msg));
     fclose(file);
-	return;		
+    return;		
 }
 
-void
+    void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
     if (!checkPassword(fd, user, password)) {
@@ -374,65 +374,75 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     }
     Room * r = referenceRoom;
     FILE * file = fopen("open_rooms.txt", "a+");
-	// Here add a new user. For now always return OK.
-   
-   
+    // Here add a new user. For now always return OK.
+
+
 
     char holder[100], name[50];
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
 
-    
+
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
         if (!strcmp(name, args)) {
             const char * rsp = "Welcome to the room!\r\n";
+            if (r->inRoom == NULL){
+                r->inRoom = n;
+            } else {
+                n = r->inRoom;
+                while (n != NULL) {
+                    n = n->next;
+                }
+                n->name = strdup(user);
+            }
             write (fd, rsp, strlen(rsp));
             fclose(file);
             return;
         }
     }
-    
+
     fprintf(file, "%s\n", args);
-	const char * msg =  "No room with that name exists! I created one for you!\r\n";
-	write(fd, msg, strlen(msg));
+    const char * msg =  "No room with that name exists! I created one for you!\r\n";
+    write(fd, msg, strlen(msg));
     while (r != NULL) {
         r = r->nextRoom;
     }
-    r->roomName = strdup(args);       
+    r->roomName = strdup(args);
     r->inRoom = n;
+    n->name = strdup(user);
     r->nextRoom = NULL;
     n->next = NULL;
     fclose(file);
-	return;		
+    return;		
 }
 
-void
+    void
 IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args)
 {
 }
 
-void
+    void
 IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args)
 {
 }
 
-void
+    void
 IRCServer::getMessages(int fd, const char * user, const char * password, const char * args)
 {
 }
 
-void
+    void
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
 }
 
-void
+    void
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
 {
     FILE * file = fopen("passwords.txt", "r");
     char holder[100], name[50];
-    
+
     if (checkPassword(fd, user, password) == false) {
         return;
     }
@@ -442,7 +452,7 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
         const char * newline = " \n";
         write (fd, name, strlen(name));
         write (fd, newline, strlen(newline));
-     }
-     fclose(file);
+    }
+    fclose(file);
 }
 
