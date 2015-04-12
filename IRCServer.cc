@@ -39,6 +39,7 @@ typedef struct Chatter{
 } Chatter;
 
 typedef struct Message{
+    int msgNum;
     char * msg;
     char * snder;
     Message * next;
@@ -230,8 +231,7 @@ IRCServer::processRequest( int fd )
 
     printf("The commandLine has the following format:\n");
     printf("COMMAND <user> <password> <arguments>. See below.\n");
-    printf("You need to separate the commandLine into those components\n");
-    printf("For now, command, user, and password are hardwired.\n");
+    printf("You need to separate the commandLine into those components\n\n\n\n\n TOM STOP\n");
 
     int i = 0, j = 0;
     char command[50];
@@ -457,6 +457,12 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
     void
 IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args)
 {
+    Room * r = referenceRoom;
+    while (strcmp(args, r->roomName) == 1) {
+        r = r->nextRoom;
+    }
+    Message * newm = (Message *) malloc(sizeof(Message));
+
 }
 
     void
