@@ -33,8 +33,6 @@ const char * usage =
 
 int QueueLength = 5;
 
-typedef struct Room Room;
-
 typedef struct Chatter{
     char * name;
     Chatter * next;
@@ -54,10 +52,12 @@ struct Room
     Room * nextRoom;
 };
 
-typedef struct roomStart{
+struct roomStart{
     Room * start;
-} roomStart;
+};
 
+typedef struct roomStart roomStart;
+typedef struct Room Room;
 roomStart * referenceRoom;
 
 int
