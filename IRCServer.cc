@@ -378,11 +378,20 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
     if (!checkPassword(fd, user, password)){
         return;
     }
+    Room * r = referenceRoom;
+    while (r->nextRoom != NULL) { 
+        if (!strcmp(args, r->roomName)) {
+            const char * msg = "Room already exists\n";
+            write (fd, msg, strlen(msg));
+            return;
+        }
+        r = r->nextRoom;
+    }
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
     newRoom->msgnum = 0;
 
-    Room * r = referenceRoom;
+
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
 
 
