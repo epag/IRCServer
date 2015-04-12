@@ -386,12 +386,12 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     
 
     if (referenceRoom == NULL) {
-    
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
-        referenceRoom->start = newRoom;
+
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         write(fd, msg, strlen(msg));
+        referenceRoom->start = newRoom;
         return;
     }
     // Here add a new user. For now always return OK.
