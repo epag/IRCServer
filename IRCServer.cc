@@ -55,7 +55,7 @@ struct Room
 };
 
 typedef struct roomStart{
-    Room * roomStart;
+    Room * start;
 } roomStart;
 
 roomStart * referenceRoom;
@@ -388,15 +388,14 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     if (referenceRoom == NULL) {
     
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
-        referenceRoom->roomStart = newRoom;
-        printf("here\n");
+        referenceRoom->start = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         write(fd, msg, strlen(msg));
         return;
     }
     // Here add a new user. For now always return OK.
-    Room * r = referenceRoom->roomStart;
+    Room * r = referenceRoom->start;
 
     Chatter * it = r->inRoom;
     while (r != NULL) {
@@ -422,7 +421,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     const char * msg =  "No room with that name exists! I created one for you!\r\n";
     write(fd, msg, strlen(msg));
-    r = referenceRoom->roomStart;
+    r = referenceRoom->start;
     while (r->nextRoom != NULL) {
         r = r->nextRoom;
     }
@@ -453,7 +452,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
     void
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
-    Room * r = referenceRoom->roomStart;
+    Room * r = referenceRoom->start;
     while (strcmp(args, r->roomName)) {
         r = r->nextRoom;
     }
