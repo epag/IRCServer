@@ -54,7 +54,11 @@ struct Room
     Room * nextRoom;
 };
 
-Room * referenceRoom;
+typedef struct roomStart{
+    Room * roomStart;
+} roomStart;
+
+roomStart * referenceRoom;
 
 int
 IRCServer::open_server_socket(int port) {
@@ -372,7 +376,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     if (!checkPassword(fd, user, password)) {
         return;
     }
-    Room * r = referenceRoom;
+    Room * r = referenceRoom->roomStart;
     Room * newRoom = (Room *) malloc(sizeof(Room));
     // Here add a new user. For now always return OK.
 
@@ -383,9 +387,9 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     n->name = strdup(user);
 
 
-    if (referenceRoom == NULL) {
+    if (r == NULL) {
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
-        referenceRoom = newRoom;
+        referenceRoom->roomStart = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         write(fd, msg, strlen(msg));
@@ -416,7 +420,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     const char * msg =  "No room with that name exists! I created one for you!\r\n";
     write(fd, msg, strlen(msg));
-    r = referenceRoom;
+    r = referenceRoom->roomStart;
     while (r->nextRoom != NULL) {
         r = r->nextRoom;
     }
@@ -447,8 +451,8 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
     void
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
-    Room * r = referenceRoom;
-    while (!strcmp(args, r->roomName)) {
+    Room * r = referenceRoom->roomStart;
+    while (strcmp(args, r->roomName)) {
         r = r->nextRoom;
     }
     Chatter * n = r->inRoom;
