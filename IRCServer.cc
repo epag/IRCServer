@@ -389,7 +389,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
         referenceRoom->roomStart = newRoom;
-    printf("start\n"); 
+        printf("here\n");
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         write(fd, msg, strlen(msg));
