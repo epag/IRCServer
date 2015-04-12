@@ -456,10 +456,12 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
         return;
     }
 
+        const char * newline = " \n";
     while (n != NULL) {
         char * name = strdup(n->name);
         write (fd, name, strlen(name));
         n = n->next;
+        write (fd, newline, strlen(newline));
     }
 }
 
