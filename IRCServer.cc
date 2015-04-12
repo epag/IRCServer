@@ -363,7 +363,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         }
     }
     
-    fprintf(file, "%s %s\n", args);
+    fprintf(file, "%s\n", args);
 	const char * msg =  "No room with that name exists! I created one for you!\r\n";
 	write(fd, msg, strlen(msg));
     fclose(file);
