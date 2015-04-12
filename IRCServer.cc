@@ -498,6 +498,7 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
     }
     for (int j = 0; j < 1000; j++) {
         r->Message[r->msgnum][j] = message[j];
+        r->sender[r->msgnum] = strdup(user);
     }
     if (r->msgnum == 99) {
         r->msgnum--;
