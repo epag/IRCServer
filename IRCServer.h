@@ -16,7 +16,13 @@ public:
     typedef struct{
         char * roomName;
         struct Message * start;
+        struct Chatter * inRoom;
     } Room;
+
+    typedef struct {
+        char * name;
+        struct Chatter * next;
+    } Chatter;
 
     typedef struct{
         char * msg;
