@@ -38,19 +38,15 @@ typedef struct Chatter{
     Chatter * next;
 } Chatter;
 
-typedef struct Message{
-    int msgNum;
-    char * msg;
-    char * snder;
-    Message * next;
-} Message;
 
 struct Room 
 {
     char * roomName;
+    int msgnum;
     Chatter * inRoom;
-    Message * nextMsg;
     Room * nextRoom;
+    char Message[100][1000];
+    char sender[100][100];
 };
 
 typedef struct Room Room;
@@ -238,6 +234,7 @@ IRCServer::processRequest( int fd )
     char user[50];
     char password[50];
     char args[50];
+    char message[1000];
 
     while (commandLine[i] != ' ') {
         command[i] = commandLine[i];
@@ -262,12 +259,20 @@ IRCServer::processRequest( int fd )
     j = 0;
     i++;
     args[j] = ' ';
-    while (commandLine[i] != '\0' && commandLine[i] != ' ') {
+    while (commandLine[i] != ' ') {
         args[j] = commandLine[i];
         i++;
         j++;
     }
     args[j] = '\0';
+    j = 0;
+    i++;
+    while (commandLine[i] != '\0') {
+        message[j] = commandLine[i];
+        i++;
+        j++;
+    }
+    message[j] = '\0';
 
 
     printf("command=%s\n", command);
@@ -285,7 +290,7 @@ IRCServer::processRequest( int fd )
         leaveRoom(fd, user, password, args);
     }
     else if (!strcmp(command, "SEND-MESSAGE")) {
-        sendMessage(fd, user, password, args);
+        sendMessage(fd, user, password, args, message);
     }
     else if (!strcmp(command, "GET-MESSAGES")) {
         getMessages(fd, user, password, args);
@@ -374,6 +379,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
     }
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
+    newRoom->msgnum = 0;
 
     Room * r = referenceRoom;
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
@@ -474,14 +480,26 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
 }
 
     void
-IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args)
+IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args, const char * message)
 {
     Room * r = referenceRoom;
     while (strcmp(args, r->roomName) == 1) {
         r = r->nextRoom;
     }
-    Message * newm = (Message *) malloc(sizeof(Message));
 
+    if (r->msgnum == 99) {
+        for (int i = 0; i < 98; i ++) {
+            for (int j = 0; j < 1000; j++) {
+                r->Message[i][j] = r->Message[i+1][j];
+            }
+        }
+    }
+    for (int j = 0; j < 1000; j++) {
+        r->Message[r->msgnum][j] = message[j];
+    }
+    if (r->msgnum == 99) {
+        r->msgnum--;
+    }
 }
 
     void

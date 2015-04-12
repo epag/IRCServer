@@ -47,7 +47,7 @@ public:
 	void addUser(int fd, const char * user, const char * password, const char * args);
 	void enterRoom(int fd, const char * user, const char * password, const char * args);
 	void leaveRoom(int fd, const char * user, const char * password, const char * args);
-	void sendMessage(int fd, const char * user, const char * password, const char * args);
+	void sendMessage(int fd, const char * user, const char * password, const char * args, const char * message);
 	void getMessages(int fd, const char * user, const char * password, const char * args);
     void createRoom(int fd, const char * user, const char * password, const char * args);
 	void getUsersInRoom(int fd, const char * user, const char * password, const char * args);
