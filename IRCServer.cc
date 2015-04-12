@@ -384,38 +384,17 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     n->name = strdup(user);
 
     if (referenceRoom == NULL) {
-        const char * msg =  "No room with that name exists! I created one for you!\r\n";
+        //const char * msg =  "No room with that name exists! I created one for you!\r\n";
         
         referenceRoom = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         fclose(file);
+        const char * msg = newRoom->roomName;
         write(fd, msg, strlen(msg));
-        fprintf(file, "%s\n", args);
         return;
     }
 
-    while (fgets(holder, 100, file)) {
-        sscanf (holder, "%s\n", name);
-        if (!strcmp(name, args)) {
-            const char * rsp = "Welcome to the room!\r\n";
-            while (strcmp(args, r->roomName)) {
-                if (r->inRoom == NULL){
-                    r->inRoom = n;
-                } else {
-                    n = r->inRoom;
-                    while (n != NULL) {
-                        n = n->next;
-                    }
-                    n->name = strdup(user);
-                }
-                r = r->nextRoom;
-            }
-            write (fd, rsp, strlen(rsp));
-            fclose(file);
-            return;
-        }
-    }
 
     fprintf(file, "%s\n", args);
     const char * msg =  "No room with that name exists! I created one for you!\r\n";
