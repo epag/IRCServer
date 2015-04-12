@@ -518,6 +518,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
         r = r->nextRoom;
     }
     for (int i = 0; i < 99; i++) {
+        printf("here\n");
         const char * msg = strdup(r->Message[i]);
         write (fd, msg, strlen(msg));
     }
