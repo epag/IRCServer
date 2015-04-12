@@ -382,17 +382,36 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     char holder[100], name[50];
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
+    Chatter * it = r->inRoom;
 
     if (referenceRoom == NULL) {
-        //const char * msg =  "No room with that name exists! I created one for you!\r\n";
-        
+        const char * msg =  "No room with that name exists! I created one for you!\r\n";
         referenceRoom = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
         fclose(file);
-        const char * msg = newRoom->roomName;
         write(fd, msg, strlen(msg));
         return;
+    }
+
+    while (r != NULL) {
+        if (!strcmp(args, r->roomName)) {
+            if (r->inRoom == NULL) {
+                r->inRoom = n;
+
+            } else {
+                while (it->next != NULL) {
+                    it = it->next;
+                }
+                it->next = n;
+            }
+
+            const char * msg = "You joined the room!\n";
+            write (fd, msg, strlen(msg));
+            return;
+        }
+
+        r = r->nextRoom;
     }
 
 
@@ -404,7 +423,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     }
 
     r->roomName = strdup(args);
-    
+
     write(fd, msg, strlen(msg));
     r->inRoom = n;
     n->name = strdup(user);
