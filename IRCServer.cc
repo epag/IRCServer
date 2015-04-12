@@ -296,6 +296,9 @@ IRCServer::processRequest( int fd )
     else if (!strcmp(command, "GET-ALL-USERS")) {
         getAllUsers(fd, user, password, args);
     }
+    else if (!strcmp(command, "CREATE-ROOM")) {
+        createRoom(fd, user, password, args);
+    }
     else {
         const char * msg =  "UNKNOWN COMMAND\r\n";
         write(fd, msg, strlen(msg));
@@ -358,12 +361,48 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     }
 
     fprintf(file, "%s %s\n", user, password);
-    const char * msg =  "TOM STAHP\r\n\n\n\n\n\n";
+    const char * msg =  "OK\r\n";
     write(fd, msg, strlen(msg));
     fclose(file);
     return;		
 }
+    void
+IRCServer::createRoom (int fd, const char * user, const char * password, const char * args) 
+{
+    if (!checkPassword(fd, user, password)){
+        return;
+    }
+    Room * newRoom = (Room *) malloc(sizeof(Room));
+    char holder[100], name[50];
 
+    Room * r = referenceRoom;
+    Chatter * n = (Chatter *) malloc(sizeof(Chatter));
+    n->name = strdup(user);
+
+
+    if (referenceRoom == NULL) {
+        const char * msg =  "No room with that name exists! I created one for you!\r\n";
+
+        newRoom->roomName = strdup(args);
+        newRoom->inRoom = n;
+        write(fd, msg, strlen(msg));
+        referenceRoom = newRoom;
+        return;
+    }
+    const char * msg =  "No room with that name exists! I created one for you!\r\n";
+    write(fd, msg, strlen(msg));
+    r = referenceRoom;
+    while (r->nextRoom != NULL) {
+        r = r->nextRoom;
+    }
+
+    r->nextRoom = newRoom;
+    newRoom->roomName = strdup(args);
+    newRoom->inRoom = n;
+    n->name = strdup(user);
+    n->next = NULL;
+    return;
+}
     void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
@@ -376,17 +415,9 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
-    
 
-    if (referenceRoom == NULL) {
-        const char * msg =  "No room with that name exists! I created one for you!\r\n";
 
-        newRoom->roomName = strdup(args);
-        newRoom->inRoom = n;
-        write(fd, msg, strlen(msg));
-        referenceRoom = newRoom;
-        return;
-    }
+
     // Here add a new user. For now always return OK.
     Room * r = referenceRoom;
 
@@ -412,19 +443,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     }
 
 
-    const char * msg =  "No room with that name exists! I created one for you!\r\n";
-    write(fd, msg, strlen(msg));
-    r = referenceRoom;
-    while (r->nextRoom != NULL) {
-        r = r->nextRoom;
-    }
-    
-    r->nextRoom = newRoom;
-    newRoom->roomName = strdup(args);
-    newRoom->inRoom = n;
-    n->name = strdup(user);
-    n->next = NULL;
-    return;		
+
 }
 
     void
@@ -445,12 +464,12 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
                 r->inRoom = prev;
             } else {
                 prev->next = n->next;
-                }
-                const char * msg = "You have left the room!\n";
-                write (fd, msg, strlen(msg));
-           }
-           prev = n;
-           n = n->next;
+            }
+            const char * msg = "You have left the room!\n";
+            write (fd, msg, strlen(msg));
+        }
+        prev = n;
+        n = n->next;
     }
 }
 
@@ -485,7 +504,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
         return;
     }
 
-        const char * newline = " \n";
+    const char * newline = " \n";
     while (n != NULL) {
         char * name = strdup(n->name);
         write (fd, name, strlen(name));

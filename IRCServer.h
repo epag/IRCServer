@@ -49,6 +49,7 @@ public:
 	void leaveRoom(int fd, const char * user, const char * password, const char * args);
 	void sendMessage(int fd, const char * user, const char * password, const char * args);
 	void getMessages(int fd, const char * user, const char * password, const char * args);
+    void createRoom(int fd, const char * user, const char * password, const char * args);
 	void getUsersInRoom(int fd, const char * user, const char * password, const char * args);
 	void getAllUsers(int fd, const char * user, const char * password, const char * args);
 	void runServer(int port);
