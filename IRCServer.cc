@@ -446,7 +446,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
     Room * r = referenceRoom;
-    while (strcmp(args, r->roomName)) {
+    while (strcmp(args, r->roomName) == 0) {
         r = r->nextRoom;
     }
     Chatter * n = r->inRoom;
@@ -459,7 +459,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 
         const char * newline = " \n";
     while (n != NULL) {
-        char * name = strdup(n->name);
+        const char * name = strdup(n->name);
         write (fd, name, strlen(name));
         n = n->next;
         write (fd, newline, strlen(newline));
