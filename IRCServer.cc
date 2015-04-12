@@ -356,7 +356,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
-        if (!strcmp(name, user)) {
+        if (!strcmp(name, args)) {
             const char * rsp = "Welcome to the room!\r\n";
             write (fd, rsp, strlen(rsp));
             fclose(file);
