@@ -231,7 +231,7 @@ IRCServer::processRequest( int fd )
 
     printf("The commandLine has the following format:\n");
     printf("COMMAND <user> <password> <arguments>. See below.\n");
-    printf("You need to separate the commandLine into those components\n\n\n\n\n TOM STOP\n");
+    printf("You need to separate the commandLine into those components\n");
 
     int i = 0, j = 0;
     char command[50];
