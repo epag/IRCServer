@@ -384,14 +384,12 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
 
     Room * r = referenceRoom;
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
-    n->name = strdup(user);
 
 
     if (referenceRoom == NULL) {
         const char * msg =  "OK\r\n";
 
         newRoom->roomName = strdup(args);
-        newRoom->inRoom = n;
         write(fd, msg, strlen(msg));
         referenceRoom = newRoom;
         return;
@@ -405,9 +403,6 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
 
     r->nextRoom = newRoom;
     newRoom->roomName = strdup(args);
-    newRoom->inRoom = n;
-    n->name = strdup(user);
-    n->next = NULL;
     return;
 }
     void
