@@ -459,6 +459,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     while (n != NULL) {
         char * name = strdup(n->name);
         write (fd, name, strlen(name));
+        n = n->next;
     }
 }
 
