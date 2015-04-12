@@ -380,10 +380,11 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
-    printf("start\n"); 
+
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
     
+    printf("start\n"); 
     if (referenceRoom->roomStart == NULL) {
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
         referenceRoom->roomStart = newRoom;
