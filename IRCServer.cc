@@ -417,6 +417,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
+    n->next = NULL;
 
 
 
@@ -430,6 +431,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
                 r->inRoom = n;
 
             } else {
+                it = r->inRoom;
                 while (it->next != NULL) {
                     it = it->next;
                 }
