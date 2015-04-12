@@ -245,7 +245,7 @@ IRCServer::processRequest( int fd )
         i++;
         j++;
     }
-    args[j-1] = '\0';
+    args[j] = '\0';
 
 
 	printf("command=%s\n", command);
