@@ -430,6 +430,28 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     void
 IRCServer::leaveRoom(int fd, const char * user, const char * password, const char * args)
 {
+    Room * r = referenceRoom;
+
+    while (strcmp(args, r->roomName) == 1) {
+        r = r->nextRoom;
+    }
+    Chatter * n = r->inRoom;
+    Chatter * prev = NULL;
+
+    while (n != NULL) {
+        if (!strcmp(user,n->name)) {
+            if (prev == NULL) {
+                prev->next = n->next;
+                r->inRoom = prev;
+            } else {
+                prev->next = n->next;
+                }
+                const char * msg = "You have left the room!\n";
+                write (fd, msg, strlen(msg));
+           }
+           prev = n;
+           n = n->next;
+    }
 }
 
     void
@@ -449,7 +471,6 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     while (strcmp(args, r->roomName) == 1) {
         r = r->nextRoom;
     }
-    printf("here\n");
     Chatter * n = r->inRoom;
 
     if (n == NULL) {
