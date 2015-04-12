@@ -321,7 +321,7 @@ IRCServer::initialize()
     fopen("passwords.txt", "a+");
     // Initialize users in room
     referenceRoom = (roomStart *) malloc(sizeof(roomStart));
-    fopen("open_rooms.txt", "w+");
+    referenceRoom = NULL;
 
     // Initalize message list
 
