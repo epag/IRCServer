@@ -374,7 +374,6 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     }
     Room * r = referenceRoom;
     Room * newRoom = (Room *) malloc(sizeof(Room));
-    FILE * file = fopen("open_rooms.txt", "a+");
     // Here add a new user. For now always return OK.
 
 
@@ -389,7 +388,6 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         referenceRoom = newRoom;
         newRoom->roomName = strdup(args);
         newRoom->inRoom = n;
-        fclose(file);
         write(fd, msg, strlen(msg));
         return;
     }
@@ -415,7 +413,6 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     }
 
 
-    fprintf(file, "%s\n", args);
     const char * msg =  "No room with that name exists! I created one for you!\r\n";
     write(fd, msg, strlen(msg));
     while (r != NULL) {
@@ -429,7 +426,6 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     n->name = strdup(user);
     r->nextRoom = NULL;
     n->next = NULL;
-    fclose(file);
     return;		
 }
 
