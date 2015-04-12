@@ -359,7 +359,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
         }
     }
 
-    fprintf(file, "%s %s\n", name, password);
+    fprintf(file, "%s %s\n", user, user);
     const char * msg =  "OK\r\n";
     write(fd, msg, strlen(msg));
     fclose(file);
@@ -448,7 +448,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
     Room * r = referenceRoom;
-    while (strcmp(args, r->roomName)) {
+    while (!strcmp(args, r->roomName)) {
         r = r->nextRoom;
     }
     Chatter * n = r->inRoom;
