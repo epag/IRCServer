@@ -447,6 +447,19 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
     void
 IRCServer::getUsersInRoom(int fd, const char * user, const char * password, const char * args)
 {
+    Room * r = referenceRoom;
+    Chatter * n = r->inRoom;
+
+    if (n == NULL) {
+        const char * msg = "The room is empty!\n";
+        write(fd, msg, strlen(msg));
+        return;
+    }
+
+    while (n != NULL) {
+        char * name = strdup(n->name);
+        write (fd, name, strlen(name));
+    }
 }
 
     void
