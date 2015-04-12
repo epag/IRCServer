@@ -384,8 +384,8 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
     n->name = strdup(user);
     
-    printf("start\n"); 
-    if (referenceRoom->roomStart == NULL) {
+
+    if (referenceRoom == NULL) {
         const char * msg =  "No room with that name exists! I created one for you!\r\n";
         referenceRoom->roomStart = newRoom;
         newRoom->roomName = strdup(args);
