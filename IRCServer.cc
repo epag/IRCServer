@@ -46,7 +46,7 @@ struct Room
     Chatter * inRoom;
     Room * nextRoom;
     char Message[100][1000];
-    char sender[100][100];
+    char * sender[100];
 };
 
 typedef struct Room Room;
@@ -493,6 +493,7 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
             for (int j = 0; j < 1000; j++) {
                 r->Message[i][j] = r->Message[i+1][j];
             }
+                r->sender[i] = strdup(user);
         }
     }
     for (int j = 0; j < 1000; j++) {
