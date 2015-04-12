@@ -412,8 +412,9 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         r = r->nextRoom;
     }
 
-    write(fd, msg, strlen(msg));
     r->roomName = strdup(args);
+    
+    write(fd, msg, strlen(msg));
     r->inRoom = n;
     n->name = strdup(user);
     r->nextRoom = NULL;
