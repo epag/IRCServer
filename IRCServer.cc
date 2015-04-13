@@ -485,7 +485,7 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
         n = n->next;
     }
 }
-
+int checked = 1;
     void
 IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args, const char * message)
 {
@@ -497,18 +497,15 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
         r = r->nextRoom;
     }
 
-    if (r->msgnum == 99) {
-        for (int i = 0; i < 99; i ++) {
+    if (r->msgnum == 100) {
+        for (int i = 0; i < 98; i ++) {
                 r->Message[i] = r->Message[i+1];
                 r->sender[i] = strdup(user);
         }
     }
-        r->Message[r->msgnum] = strdup(message);
+        r->Message[99] = strdup(message);
         r->sender[r->msgnum] = strdup(user);
-    if (r->msgnum == 99) {
-        r->msgnum = -1;
-    }
-    r->msgnum++;
+        r->msgnum++;
 }
 
     void
@@ -521,7 +518,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
     while (strcmp(args, r->roomName) == 1) {
         r = r->nextRoom;
     }
-    for (int i = 0; i < 99; i++) {
+    for (int i = 0; i < 100; i++) {
         if (r->Message[i] == NULL) {
             return;
         }
