@@ -502,8 +502,11 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
                 r->Message[i] = r->Message[i+1];
                 r->sender[i] = strdup(user);
         }
-    }
         r->Message[99] = strdup(message);
+        r->sender[99] = strdup(user);
+        return;
+    }
+        r->Message[r->msgnum] = strdup(message);
         r->sender[r->msgnum] = strdup(user);
         r->msgnum++;
 }

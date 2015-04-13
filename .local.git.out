@@ -650,3 +650,6 @@ After doing this, you may fix the identity used for this commit with:
 [master b45c050] Make IRCServer
  4 files changed, 8 insertions(+), 1 deletion(-)
  create mode 100755 test.sh
+[master 573f883] Make IRCServer
+ 4 files changed, 11 insertions(+), 11 deletions(-)
+ rewrite IRCServer (65%)
