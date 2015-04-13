@@ -384,7 +384,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
 
 
     if (referenceRoom == NULL) {
-        const char * msg =  "NO\r\n";
+        const char * msg =  "OK\r\n";
 
         newRoom->roomName = strdup(args);
         write(fd, msg, strlen(msg));
