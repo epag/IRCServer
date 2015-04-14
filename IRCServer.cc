@@ -348,7 +348,7 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 
-    FILE * file = fopen("passwords.txt", "a+");
+    FILE * file = fopen("password.txt", "a+");
     // Here add a new user. For now always return OK.
     char holder[100], name[50];
 
