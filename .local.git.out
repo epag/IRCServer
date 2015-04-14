@@ -727,3 +727,6 @@ After doing this, you may fix the identity used for this commit with:
  delete mode 100644 passwords.txt
  delete mode 100644 prog.out
  delete mode 100644 talk-server.out
+[master cade45e] Make IRCServer
+ 4 files changed, 9 insertions(+), 1 deletion(-)
+ delete mode 100755 .nfs0000000001b51b2300001f13
