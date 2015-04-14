@@ -318,7 +318,7 @@ IRCServer::processRequest( int fd )
 IRCServer::initialize()
 {
     // Open password file
-    fopen("passwords.txt", "a+");
+    fopen("password.txt", "a+");
     // Initialize users in room
     referenceRoom = NULL;
 
@@ -331,7 +331,7 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
     // Here check the password
 
     char name[50], passworded[50], holder[100];
-    FILE * file = fopen("passwords.txt", "r");
+    FILE * file = fopen("password.txt", "r");
 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s %s \n", name, passworded);
