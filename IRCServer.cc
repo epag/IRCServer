@@ -348,10 +348,11 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
 IRCServer::addUser(int fd, const char * user, const char * password, const char * args)
 {
 
-    FILE * file = fopen("password.txt", "a+");
+
     // Here add a new user. For now always return OK.
     char holder[100], name[50], passworded[50];
 
+    FILE * file = fopen("password.txt", "r");
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s %s \n", name, passworded);
         if (!strcmp(name, user)) {
@@ -362,7 +363,8 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
         }
     }
 
-    fprintf(file, "%s %s \n", user, password);
+    FILE * file1 = fopen("password.txt", "a+");
+    fprintf(file1, "%s %s \n", user, password);
     const char * msg =  "OK\r\n";
     write(fd, msg, strlen(msg));
     fclose(file);
