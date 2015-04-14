@@ -355,6 +355,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     FILE * file = fopen("password.txt", "r");
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s %s\n", name, passworded);
+        printf("%s %s\n", name, passworded);
         if (!strcmp(name, user)) {
             const char * rsp = "DENIED\r\n";
             write (fd, rsp, strlen(rsp));
