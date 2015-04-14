@@ -655,3 +655,17 @@ After doing this, you may fix the identity used for this commit with:
  rewrite IRCServer (65%)
 [master 689d212] Make IRCServer
  3 files changed, 7 insertions(+), 1 deletion(-)
+[master c2f0776] Make IRCServer
+ 17 files changed, 664 insertions(+), 22 deletions(-)
+ create mode 100755 IRCServer.org
+ create mode 100755 TestIRCServer
+ create mode 100755 test-server1.sh
+ create mode 100755 test-server10.sh
+ create mode 100755 test-server2.sh
+ create mode 100755 test-server3.sh
+ create mode 100755 test-server4.sh
+ create mode 100755 test-server5.sh
+ create mode 100755 test-server6.sh
+ create mode 100755 test-server7.sh
+ create mode 100755 test-server8.sh
+ create mode 100755 test-server9.sh
