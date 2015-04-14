@@ -355,7 +355,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
         if (!strcmp(name, user)) {
-            const char * rsp = "Name already taken\r\n";
+            const char * rsp = "DENIED\r\n";
             write (fd, rsp, strlen(rsp));
             fclose(file);
             return;
@@ -393,7 +393,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
     }
     while (r != NULL) { 
         if (!strcmp(args, r->roomName)) {
-            const char * msg = "Room already exists\n";
+            const char * msg = "DENIED\n";
             write (fd, msg, strlen(msg));
             return;
         }
@@ -418,6 +418,8 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         return;
     }
 
+    
+
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
 
@@ -425,10 +427,16 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
     n->name = strdup(user);
     n->next = NULL;
 
+    Room * r = referenceRoom;
 
+    while (r != NULL) { 
+        if (!strcmp(args, r->roomName)) {
+        }
+        r = r->nextRoom;
+    }
 
     // Here add a new user. For now always return OK.
-    Room * r = referenceRoom;
+
 
     Chatter * it = r->inRoom;
     while (r != NULL) {
