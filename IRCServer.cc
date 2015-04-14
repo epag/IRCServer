@@ -353,7 +353,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
     char holder[100], name[50];
 
     while (fgets(holder, 100, file)) {
-        sscanf (holder, "%s \n", name);
+        sscanf (holder, "%s\n", name);
         if (!strcmp(name, user)) {
             const char * rsp = "DENIED\r\n";
             write (fd, rsp, strlen(rsp));
