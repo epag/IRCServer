@@ -595,7 +595,8 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
         i++;
     }
     i--;
-    printf("%s\n", NameHolder[2]);
+    char sorted[50][50];
+    char lowes [50];
     for (; i > -1; i--) {
         const char * newline = " \n";
         write (fd, NameHolder[i], strlen(NameHolder[i]));
