@@ -349,7 +349,7 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
 {
 
     // Here add a new user. For now always return OK.
-    char holder[1000000000000000], name[50], passworded[50];
+    char holder[100], name[50], passworded[50];
 
     FILE * file = fopen("password.txt", "r");
     while (fgets(holder, 100, file)) {
