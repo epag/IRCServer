@@ -496,12 +496,15 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
             } else {
                 prev->next = n->next;
             }
-            const char * msg = "You have left the room!\n";
+            const char * msg = "OK\r\n";
             write (fd, msg, strlen(msg));
+            return;
         }
         prev = n;
         n = n->next;
     }
+    const char * msg = "ERROR (no user in room)\r\n";
+    write (fd, msg, strlen(msg));
 }
 int checked = 1;
     void
