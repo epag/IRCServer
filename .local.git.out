@@ -995,3 +995,6 @@ After doing this, you may fix the identity used for this commit with:
  create mode 100644 talk-server.out
 [master 49fd4cd] Make IRCServer
  2 files changed, 6 insertions(+), 12 deletions(-)
+[master fdd8abf] Make IRCServer
+ 4 files changed, 5 insertions(+), 1 deletion(-)
+ rewrite IRCServer (71%)
