@@ -593,6 +593,28 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
         i++;
     }
     i--;
+    char temp[50];
+    for (int a = 0; a < i; a++) {
+        if (NameHolder[a][0] == NameHolder[a+1][0]) {
+            for (int b = 0; b < 3; b++) {
+                if (NameHolder[a][b] > NameHolder[a+1][b]) {
+                    sscanf(NameHolder[a], "%s\n", temp);
+                    sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+                    sscanf(temp, "%s\n", NameHolder[a+1]);
+                    a = -1;
+                    break;
+                }
+            }
+        }
+        if (NameHolder[a][0] > NameHolder[a+1][0]) {
+                    sscanf(NameHolder[a], "%s\n", temp);
+                    sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+                    sscanf(temp, "%s\n", NameHolder[a+1]);
+                    a = -1;
+        }
+    }
+        
+
     char sorted[50][50];
     char lowes [50];
     for (; i > -1; i--) {
