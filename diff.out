@@ -1,0 +1,44 @@
+8a9,17
+> OK
+> 
+> ADD-USER aquaman xyz
+> response:
+> OK
+> 
+> ADD-USER mary poppins
+> response:
+> OK
+10a20,23
+> CREATE-ROOM superman clarkkent java-programming
+> response:
+> OK
+> 
+11a25,32
+> ENTER-ROOM superman clarkkent java-programming
+> response:
+> OK
+> 
+> ENTER-ROOM aquaman xyz java-programming
+> response:
+> OK
+> 
+12a34,39
+> GET-USERS-IN-ROOM superman clarkkent java-programming
+> response:
+> aquaman
+> superman
+> 
+> 
+13a41,44
+> ENTER-ROOM mary poppins java-programming
+> response:
+> OK
+> 
+14a46,52
+> GET-USERS-IN-ROOM mary poppins java-programming
+> response:
+> aquaman
+> mary
+> superman
+> 
+> 

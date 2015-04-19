@@ -618,11 +618,11 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
     char sorted[50][50];
     char lowes [50];
     for (int a = 0; a < i+1; a++) {
-        const char * newline = " \n";
+        const char * newline = "\r\n";
         write (fd, NameHolder[a], strlen(NameHolder[a]));
         write (fd, newline, strlen(newline));
     }
-        const char * newline = " \n";
+        const char * newline = "\r\n";
         write (fd, newline, strlen(newline));
     fclose(file);
 }
