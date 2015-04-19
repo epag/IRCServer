@@ -582,6 +582,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     }
     i--;
     char temp[50];
+    printf("IMT HERE\n");
     for (int a = 0; a < i; a++) {
         if (NameHolder[a][0] == NameHolder[a+1][0]) {
             for (int b = 0; b < 3; b++) {
