@@ -432,17 +432,11 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
     Room * r = referenceRoom;
 
-    while (r != NULL) { 
-        if (!strcmp(args, r->roomName)) {
-        }
-        r = r->nextRoom;
-    }
     // Here add a new user. For now always return OK.
 
 
     Chatter * it = r->inRoom;
     while (r != NULL) {
-        printf("LOOP\n");
         if (!strcmp(args, r->roomName)) {
             if (r->inRoom == NULL) {
                 r->inRoom = n;
