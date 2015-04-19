@@ -30,6 +30,8 @@ const char * usage =
 #include <stdio.h>
 #include <time.h>
 #include "IRCServer.h"
+#include <string>
+#include <algorithm>
 
 int QueueLength = 5;
 
