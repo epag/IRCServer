@@ -321,7 +321,6 @@ IRCServer::processRequest( int fd )
 IRCServer::initialize()
 {
     // Open password file
-    fopen("password.txt", "a+");
     // Initialize users in room
     referenceRoom = NULL;
 
