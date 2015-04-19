@@ -259,7 +259,7 @@ IRCServer::processRequest( int fd )
     i++;
     args[j] = ' ';
 
-    while (commandLine[i] != ' ' && commandLine[i] != '\n') {
+    while (commandLine[i] != ' ' && commandLine[i] != '\r') {
         args[j] = commandLine[i];
         i++;
         j++;

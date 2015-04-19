@@ -1,0 +1,6 @@
+RECEIVED: ADD-USER superman clarkkent
+command=ADD-USER
+user=superman
+password=clarkkent
+args=42766
+message=22

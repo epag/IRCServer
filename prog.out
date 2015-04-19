@@ -1,0 +1,13 @@
+Start Test 2
+Add Users
+ADD-USER superman clarkkent
+response:
+OK
+
+ADD-USER spiderman peterpark
+response:
+
+Create Room
+Enter room
+Print users in room
+Killing Server
