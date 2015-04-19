@@ -275,7 +275,12 @@ IRCServer::processRequest( int fd )
                 j++;
             }
             message[j] = '\0';
+        } else {
+            message[0] = '\0';
         }
+    } else {
+        message[0] = '\0';
+        args[0] = '\0';
     }
 
     printf("command=%s\n", command);
