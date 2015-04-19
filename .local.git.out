@@ -1007,3 +1007,8 @@ After doing this, you may fix the identity used for this commit with:
  3 files changed, 5 insertions(+)
 [master ce36ab6] Make IRCServer
  3 files changed, 3 insertions(+)
+[master a6ebe95] Make IRCServer
+ 4 files changed, 2 insertions(+), 12 deletions(-)
+ delete mode 100644 diff.out
+ delete mode 100644 prog.out
+ delete mode 100644 talk-server.out
