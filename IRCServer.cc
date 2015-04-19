@@ -360,6 +360,9 @@ IRCServer::addUser(int fd, const char * user, const char * password, const char 
             fclose(file);
             return;
         }
+        holder[0] = '\0';
+        name[0] = '\0';
+        passworded[0] = '\0';
     }
 
     fprintf(file, "%s %s\n", user, password);
