@@ -586,7 +586,7 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
     }
 
     while (fgets(holder, 100, file)) {
-        sscanf (holder, "%s", name);
+        sscanf (holder, "%s\n", name);
         const char * newline = " \n";
         write (fd, name, strlen(name));
         write (fd, newline, strlen(newline));
