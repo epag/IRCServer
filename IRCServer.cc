@@ -622,6 +622,8 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
         write (fd, NameHolder[a], strlen(NameHolder[a]));
         write (fd, newline, strlen(newline));
     }
+        const char * newline = " \n";
+        write (fd, newline, strlen(newline));
     fclose(file);
 }
 
