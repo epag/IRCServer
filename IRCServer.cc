@@ -578,7 +578,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     void
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
 {
-    FILE * file = fopen("passwords.txt", "r");
+    FILE * file = fopen("password.txt", "r");
     char holder[100], name[50];
 
     if (checkPassword(fd, user, password) == false) {
