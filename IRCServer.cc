@@ -583,7 +583,7 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 {
     FILE * file = fopen("password.txt", "r");
     char holder[100];
-    char * name;
+    char name [50];
     char * NameHolder[50];
     int i = 0;
     if (checkPassword(fd, user, password) == false) {
@@ -592,13 +592,13 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
-        NameHolder[i] = strdup(name);
+        NameHolder[i] = &name[0];
         i++;
     }
     for (; i > -1; i--) {
         const char * newline = " \n";
-        name = strdup(NameHolder[i]);
-        write (fd, name, strlen(name));
+        NameHolder[i];
+        write (fd, NameHolder[i], strlen(NameHolder[i]));
         write (fd, newline, strlen(newline));
     }
     fclose(file);
