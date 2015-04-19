@@ -503,7 +503,7 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
         prev = n;
         n = n->next;
     }
-    const char * msg = "ERROR (no user in room)\r\n";
+    const char * msg = "ERROR (No user in room)\r\n";
     write (fd, msg, strlen(msg));
 }
 int checked = 1;
