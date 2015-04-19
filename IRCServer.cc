@@ -584,7 +584,7 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
     FILE * file = fopen("password.txt", "r");
     char holder[100];
     char name [50];
-    char * NameHolder[50];
+    char NameHolder[50][50];
     int i = 0;
     if (checkPassword(fd, user, password) == false) {
         return;
