@@ -1078,3 +1078,6 @@ After doing this, you may fix the identity used for this commit with:
  delete mode 100644 talk-server.out
 [master e471b85] Make IRCServer
  3 files changed, 19 insertions(+), 4 deletions(-)
+[master e5c9fbd] Make IRCServer
+ 3 files changed, 3 insertions(+), 12 deletions(-)
+ create mode 100644 .IRCServer.cc.swp
