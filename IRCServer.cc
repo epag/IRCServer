@@ -339,11 +339,13 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s %s \n", name, passworded);
         if (!strcmp(name, user) && !strcmp(password, passworded)) {
+            fclose(file);
             return true;
         }
     }
     const char * msg = "Incorrect password\n";
     write (fd, msg, strlen(msg));
+    fclose(file);
     return false;
 }
 
