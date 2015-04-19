@@ -581,8 +581,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 
     while (n != NULL) {
         char * name = strdup(n->name);
-        sscanf(NameHolder[i], "%s\n", name);
-    printf("%s\n", NameHolder[i]);
+        strcpy(NameHolder[i], name);
         i++;
         n = n->next;
     }
