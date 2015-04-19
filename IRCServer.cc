@@ -579,15 +579,22 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
 {
     FILE * file = fopen("password.txt", "r");
-    char holder[100], name[50];
-
+    char holder[100];
+    char * name;
+    char * NameHolder[50];
+    int i = 0;
     if (checkPassword(fd, user, password) == false) {
         return;
     }
 
     while (fgets(holder, 100, file)) {
         sscanf (holder, "%s\n", name);
+        NameHolder[i] = strdup(name);
+        i++;
+    }
+    for (; i > -1; i--) {
         const char * newline = " \n";
+        name = strdup(NameHolder[i]);
         write (fd, name, strlen(name));
         write (fd, newline, strlen(newline));
     }
