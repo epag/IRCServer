@@ -32,6 +32,7 @@ const char * usage =
 #include "IRCServer.h"
 #include <string>
 #include <algorithm>
+using namespace std;
 
 int QueueLength = 5;
 
