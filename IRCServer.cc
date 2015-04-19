@@ -437,7 +437,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         }
         r = r->nextRoom;
     }
-
+    printf("Here\n");
     // Here add a new user. For now always return OK.
 
 
