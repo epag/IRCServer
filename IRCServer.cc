@@ -249,38 +249,41 @@ IRCServer::processRequest( int fd )
     user[j] = '\0';
     j = 0;
     i++;
-    while (commandLine[i] != ' ') {
+    while (commandLine[i] != ' ' && commandLine[i] != '\n' && commandLine[i] != '\r') {
         password[j] = commandLine[i];
         i++;
         j++;
     }
-    password[j] = '\0';
-    j = 0;
-    i++;
-    args[j] = ' ';
-
-    while (commandLine[i] != ' ' && commandLine[i] != '\r') {
-        args[j] = commandLine[i];
+    if (commandLine[i] == ' ') {
+        password[j] = '\0';
+        j = 0;
         i++;
-        j++;
-    }
-    args[j] = '\0';
-    j = 0;
-    i++;
-    while (commandLine[i] != '\0' && commandLine[i] != '\n') {
-        message[j] = commandLine[i];
-        i++;
-        j++;
-    }
-    message[j] = '\0';
+        args[j] = ' ';
 
+        while (commandLine[i] != ' ' && commandLine[i] != '\r') {
+            args[j] = commandLine[i];
+            i++;
+            j++;
+        }
+        if (commandLine[i] == ' ') { 
+            args[j] = '\0';
+            j = 0;
+            i++;
+            while (commandLine[i] != '\0' && commandLine[i] != '\n') {
+                message[j] = commandLine[i];
+                i++;
+                j++;
+            }
+            message[j] = '\0';
+        }
+    }
 
     printf("command=%s\n", command);
     printf("user=%s\n", user);
     printf( "password=%s\n", password );
     printf("args=%s\n", args);
     printf("message=%s\n", message);
-    
+
     if (!strcmp(command, "ADD-USER")) {
         addUser(fd, user, password, args);
     }
@@ -426,7 +429,7 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
         return;
     }
 
-    
+
 
     Room * newRoom = (Room *) malloc(sizeof(Room));
     char holder[100], name[50];
@@ -509,16 +512,16 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
 
     if (r->msgnum == 100) {
         for (int i = 0; i < 98; i ++) {
-                r->Message[i] = r->Message[i+1];
-                r->sender[i] = strdup(user);
+            r->Message[i] = r->Message[i+1];
+            r->sender[i] = strdup(user);
         }
         r->Message[99] = strdup(message);
         r->sender[99] = strdup(user);
         return;
     }
-        r->Message[r->msgnum] = strdup(message);
-        r->sender[r->msgnum] = strdup(user);
-        r->msgnum++;
+    r->Message[r->msgnum] = strdup(message);
+    r->sender[r->msgnum] = strdup(user);
+    r->msgnum++;
 }
 
     void
@@ -608,13 +611,13 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
             }
         }
         if (NameHolder[a][0] > NameHolder[a+1][0]) {
-                    sscanf(NameHolder[a], "%s\n", temp);
-                    sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
-                    sscanf(temp, "%s\n", NameHolder[a+1]);
-                    a = -1;
+            sscanf(NameHolder[a], "%s\n", temp);
+            sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+            sscanf(temp, "%s\n", NameHolder[a+1]);
+            a = -1;
         }
     }
-        
+
 
     char sorted[50][50];
     char lowes [50];
@@ -623,8 +626,8 @@ IRCServer::getAllUsers(int fd, const char * user, const char * password,const  c
         write (fd, NameHolder[a], strlen(NameHolder[a]));
         write (fd, newline, strlen(newline));
     }
-        const char * newline = "\r\n";
-        write (fd, newline, strlen(newline));
+    const char * newline = "\r\n";
+    write (fd, newline, strlen(newline));
     fclose(file);
 }
 
