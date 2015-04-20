@@ -552,11 +552,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
         
         const char * msg = strdup(r->Message[i]);
         const char * usr = strdup(r->sender[i]);
-        char * num;
         const char * newLine = " \n";
-        sprintf (num, "%d %s", i, usr);
-        printf ("%s\n", num);
-        write (fd, num, strlen(num));
         write (fd, usr, strlen(usr));
         write (fd, msg, strlen(msg));
         write (fd, newLine, strlen(newLine));
