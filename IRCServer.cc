@@ -545,7 +545,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
     while (strcmp(message, r->roomName) == 1) {
         r = r->nextRoom;
     }
-    int i = (int) *args - '0' + 1;
+    int i = (int) *args - '0';
     for (; i < 100; i++) {
         if (r->Message[i] == NULL) {
         const char * newLine = "\r\n";
