@@ -549,13 +549,9 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
     }
     int i = (int) *args - '0';
     for (; i < 99; i++) {
-        const char * err1 = "error1\r\n";
-        write(fd, err1, strlen(err1));
         if (r->Message[i] == NULL ) {
             return;
         }
-        const char * err2 = "error2\r\n";
-        write(fd, err2, strlen(err2));
         char num[50];
         sprintf(num, "%d", i);
         const char * msg = strdup(r->Message[i]);
