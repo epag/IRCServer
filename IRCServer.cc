@@ -552,7 +552,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         }
         
         char num[5];
-        sprintf(num, "%d", i+1);
+        sprintf(num, "%d", i);
         const char * msg = strdup(r->Message[i]);
         const char * usr = strdup(r->sender[i]);
         const char * space = " ";
