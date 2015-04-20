@@ -1,0 +1,49 @@
+27a28
+> ERROR (No room)
+31c32
+< Incorrect password
+---
+> ERROR (Wrong password)
+39c40
+< Incorrect password
+---
+> ERROR (Wrong password)
+48c49
+< Incorrect password
+---
+> ERROR (Wrong password)
+52c53
+< The room is empty!
+---
+> 
+62c63
+< Incorrect password
+---
+> ERROR (Wrong password)
+67c68
+< OK
+---
+> ERROR (user not in room)
+71c72
+< Incorrect password
+---
+> ERROR (Wrong password)
+76c77
+< OK
+---
+> ERROR (user not in room)
+80c81
+< Incorrect password
+---
+> ERROR (Wrong password)
+85,86c86
+< 0 superman Hi everybody!
+< 1 superman Welcome to java-programming!
+---
+> ERROR (User not in room)
+90a91
+> ERROR (User not in room)
+94a96
+> NO-NEW-MESSAGES
+102a105
+> ERROR (User not in room)
