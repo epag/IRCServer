@@ -1259,3 +1259,7 @@ After doing this, you may fix the identity used for this commit with:
  delete mode 100644 diff.out
  delete mode 100644 prog.out
  delete mode 100644 talk-server.out
+[master cbb9cbc] Make IRCServer
+ 4 files changed, 7 insertions(+), 1 deletion(-)
+ delete mode 100755 HashTableVoidTest
+ delete mode 100755 IRCServer
