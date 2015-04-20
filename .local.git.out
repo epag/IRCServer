@@ -1312,3 +1312,5 @@ After doing this, you may fix the identity used for this commit with:
  rewrite talk-server.out (100%)
 [master 7b88b52] Make IRCServer
  2 files changed, 11 insertions(+), 8 deletions(-)
+[master 4102252] Make IRCServer
+ 4 files changed, 8 insertions(+), 5 deletions(-)
