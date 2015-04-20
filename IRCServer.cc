@@ -302,7 +302,7 @@ IRCServer::processRequest( int fd )
         sendMessage(fd, user, password, args, message);
     }
     else if (!strcmp(command, "GET-MESSAGES")) {
-        getMessages(fd, user, password, args);
+        getMessages(fd, user, password, args, message);
     }
     else if (!strcmp(command, "GET-USERS-IN-ROOM")) {
         getUsersInRoom(fd, user, password, args);
@@ -536,13 +536,13 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
 }
 
     void
-IRCServer::getMessages(int fd, const char * user, const char * password, const char * args)
+IRCServer::getMessages(int fd, const char * user, const char * password, const char * args, char * message)
 {
     if (checkPassword(fd, user, password) == false) {
         return;
     }
     Room * r = referenceRoom;
-    while (strcmp(args, r->roomName) == 1) {
+    while (strcmp(message, r->roomName) == 1) {
         r = r->nextRoom;
     }
     for (int i = 0; i < 100; i++) {
