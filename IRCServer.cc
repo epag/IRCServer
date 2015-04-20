@@ -482,7 +482,7 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
     }
     Room * r = referenceRoom;
 
-    while (strcmp(args, r->roomName) == 1) {
+    while (strcmp(args, r->roomName)) {
         r = r->nextRoom;
     }
     Chatter * n = r->inRoom;
