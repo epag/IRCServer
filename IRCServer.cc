@@ -536,7 +536,7 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
 }
 
     void
-IRCServer::getMessages(int fd, const char * user, const char * password, const char * args, char * message)
+IRCServer::getMessages(int fd, const char * user, const char * password, char * args, const char * message)
 {
     if (checkPassword(fd, user, password) == false) {
         return;
@@ -545,7 +545,8 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
     while (strcmp(message, r->roomName) == 1) {
         r = r->nextRoom;
     }
-    for (int i = 0; i < 100; i++) {
+    int i = (int) *args;
+    for (; i < 100; i++) {
         if (r->Message[i] == NULL) {
             return;
         }
