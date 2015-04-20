@@ -1263,3 +1263,7 @@ After doing this, you may fix the identity used for this commit with:
  4 files changed, 7 insertions(+), 1 deletion(-)
  delete mode 100755 HashTableVoidTest
  delete mode 100755 IRCServer
+[master 246513f] Make IRCServer
+ 3 files changed, 4 insertions(+)
+ create mode 100755 HashTableVoidTest
+ create mode 100755 IRCServer
