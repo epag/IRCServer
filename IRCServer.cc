@@ -542,7 +542,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         return;
     }
     Room * r = referenceRoom;
-    while (strcmp(message, r->roomName) == 1) {
+    while (strcmp(message, r->roomName)){
         r = r->nextRoom;
     }
     int i = (int) *args - '0';
@@ -553,7 +553,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
             return;
         }
         
-        char num[5];
+        char num[50];
         sprintf(num, "%d", i);
         const char * msg = strdup(r->Message[i]);
         const char * usr = strdup(r->sender[i]);

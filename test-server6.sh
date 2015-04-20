@@ -63,14 +63,14 @@ echo Send message
 ./TestIRCServer localhost $PORT "SEND-MESSAGE superman clarkkent java-programming message 7"
 ./TestIRCServer localhost $PORT "SEND-MESSAGE superman clarkkent java-programming message 8"
 
-echo Get messages from 0
-./TestIRCServer localhost $PORT "GET-MESSAGES mary poppins 0 java-programming"
+#echo Get messages from 0
+#./TestIRCServer localhost $PORT "GET-MESSAGES mary poppins 0 java-programming"
 
-echo Enter another user
-./TestIRCServer localhost $PORT "LEAVE-ROOM mary poppins java-programming"
+#echo Enter another user
+#./TestIRCServer localhost $PORT "LEAVE-ROOM mary poppins java-programming"
 
-echo Get messages from 2
-./TestIRCServer localhost $PORT "GET-MESSAGES superman clarkkent 2 java-programming"
+#echo Get messages from 2
+#./TestIRCServer localhost $PORT "GET-MESSAGES superman clarkkent 2 java-programming"
 
 # Kill server
 echo Killing Server
