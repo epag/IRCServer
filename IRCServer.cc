@@ -350,7 +350,7 @@ IRCServer::checkPassword(int fd, const char * user, const char * password) {
             return true;
         }
     }
-    const char * msg = "Incorrect password\n";
+    const char * msg = "ERROR (Wrong password)\r\n";
     write (fd, msg, strlen(msg));
     fclose(file);
     return false;
@@ -550,6 +550,8 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
     int i = (int) *args - '0';
     for (; i < 99; i++) {
         if (r->Message[i] == NULL ) {
+            const char * newLine = "\r\n";
+            write (fd, newLine, strlen(newLine));
             return;
         }
         char num[50];
