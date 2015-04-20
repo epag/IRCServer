@@ -556,7 +556,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         const char * msg = strdup(r->Message[i]);
         const char * usr = strdup(r->sender[i]);
         const char * space = " ";
-        const char * newLine = " \n";
+        const char * newLine = "\r\n";
         write (fd, num, strlen(num));
         write (fd, space, strlen(space));
         write (fd, usr, strlen(usr));
