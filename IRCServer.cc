@@ -548,6 +548,8 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
     int i = (int) *args - '0' + 1;
     for (; i < 100; i++) {
         if (r->Message[i] == NULL) {
+        const char * newLine = "\r\n";
+        write (fd, newLine, strlen(newLine));
             return;
         }
         
@@ -563,7 +565,6 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         write (fd, space, strlen(space));
         write (fd, msg, strlen(msg));
         write (fd, newLine, strlen(newLine));
-
     }
         const char * newLine = "\r\n";
         write (fd, newLine, strlen(newLine));
