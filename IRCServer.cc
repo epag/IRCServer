@@ -566,6 +566,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         write (fd, msg, strlen(msg));
         write (fd, newLine, strlen(newLine));
     }
+    return;
 }
 
     void
