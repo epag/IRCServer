@@ -510,6 +510,7 @@ int checked = 1;
     void
 IRCServer::sendMessage(int fd, const char * user, const char * password, const char * args, const char * message)
 {
+    const char * msg = "OK\r\n";
     if (checkPassword(fd, user, password) == false) {
         return;
     }
@@ -525,11 +526,13 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
         }
         r->Message[99] = strdup(message);
         r->sender[99] = strdup(user);
+        write (fd, msg, strlen(msg));
         return;
     }
     r->Message[r->msgnum] = strdup(message);
     r->sender[r->msgnum] = strdup(user);
     r->msgnum++;
+    write (fd, msg, strlen(msg));
 }
 
     void
@@ -552,7 +555,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, const c
         char * num;
         const char * newLine = " \n";
         sprintf (num, "%d %s", i, usr);
-
+        printf ("%s\n", num);
         write (fd, num, strlen(num));
         write (fd, usr, strlen(usr));
         write (fd, msg, strlen(msg));
