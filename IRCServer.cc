@@ -491,7 +491,7 @@ IRCServer::leaveRoom(int fd, const char * user, const char * password, const cha
     while (n != NULL) {
         if (!strcmp(user,n->name)) {
             if (prev == NULL) {
-                prev->next = n->next;
+                prev = n->next;
                 r->inRoom = prev;
             } else {
                 prev->next = n->next;
