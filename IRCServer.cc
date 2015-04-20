@@ -332,7 +332,6 @@ IRCServer::initialize()
     // Open password file
     // Initialize users in room
     referenceRoom = NULL;
-
     // Initalize message list
 
 }
@@ -395,6 +394,9 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
     char holder[100], name[50];
     newRoom->msgnum = 0;
 
+    for (int i = 0; i < 100; i++) { 
+        newRoom->Message[i] = NULL;
+    }
 
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
 
