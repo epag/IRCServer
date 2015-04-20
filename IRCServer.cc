@@ -546,8 +546,8 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         r = r->nextRoom;
     }
     int i = (int) *args - '0';
-    for (; i < 100; i++) {
-        if (r->Message[i] == NULL || i == 99) {
+    for (; i < 99; i++) {
+        if (r->Message[i] == NULL ) {
             return;
         }
         
