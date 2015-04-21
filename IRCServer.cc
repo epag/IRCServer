@@ -615,7 +615,7 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
         return;
     }
     Room * r = referenceRoom;
-    while (strcmp(args, r->roomName) == 1) {
+    while (strcmp(args, r->roomName)) {
         r = r->nextRoom;
     }
     Chatter * n = r->inRoom;
