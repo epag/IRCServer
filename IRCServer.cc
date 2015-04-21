@@ -477,6 +477,9 @@ IRCServer::enterRoom(int fd, const char * user, const char * password, const cha
 
         r = r->nextRoom;
     }
+    const char * err = "ERROR (No room)\r\n";
+    write (fd, err, strlen(err));
+    return;
 
 
 
