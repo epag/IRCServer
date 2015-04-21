@@ -531,7 +531,7 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
         n = n->next;
     }
 
-
+if (checked == 1) {
     if (r->msgnum == 100) {
         for (int i = 0; i < 98; i ++) {
             r->Message[i] = r->Message[i+1];
@@ -546,6 +546,10 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
     r->sender[r->msgnum] = strdup(user);
     r->msgnum++;
     write (fd, msg, strlen(msg));
+} else {
+    const char * rsp = "ERROR (User not in room)\r\n";
+    write (fd, rsp, strlen(rsp));
+}
 }
 
     void
