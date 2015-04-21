@@ -562,6 +562,16 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
     while (strcmp(message, r->roomName)){
         r = r->nextRoom;
     }
+    Chatter * n = r->inRoom;
+    int checked = 0;
+    while (n != NULL) {
+        if (!strcmp(n->name, user)) {
+            checked = 1;
+        }
+        n = n->next;
+    }
+
+    if (checked = 1) {
     int i = (int) *args - '0';
     for (; i < 99; i++) {
         if (r->Message[i] == NULL ) {
@@ -583,6 +593,12 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         write (fd, newLine, strlen(newLine));
     }
     return;
+    } else {
+    const char * rsp = "ERROR (User not in room)\r\n";
+    write (fd, rsp, strlen(rsp));
+    return; 
+}
+
 }
 
     void
