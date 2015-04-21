@@ -396,6 +396,7 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
 
     for (int i = 0; i < 100; i++) { 
         newRoom->Message[i] = NULL;
+
     }
 
     Chatter * n = (Chatter *) malloc(sizeof(Chatter));
@@ -520,6 +521,16 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
     while (strcmp(args, r->roomName) == 1) {
         r = r->nextRoom;
     }
+    
+    Chatter * n = r->inRoom;
+    int checked = 0;
+    while (n != NULL) {
+        if (!strcmp(n->name, user)) {
+            checked = 1;
+        }
+        n = n->next;
+    }
+
 
     if (r->msgnum == 100) {
         for (int i = 0; i < 98; i ++) {
