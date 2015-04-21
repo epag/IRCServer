@@ -562,6 +562,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
     while (strcmp(message, r->roomName)){
         r = r->nextRoom;
     }
+
     Chatter * n = r->inRoom;
     int checked = 0;
     while (n != NULL) {
@@ -571,7 +572,7 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         n = n->next;
     }
 
-    if (checked = 1) {
+    if (checked == 1) {
     int i = (int) *args - '0';
     for (; i < 99; i++) {
         if (r->Message[i] == NULL ) {
