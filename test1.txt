@@ -50,7 +50,6 @@ ERROR (Wrong password)
 
 GET-USERS-IN-ROOM mary poppins java-programming
 response:
-ERROR (No room)
 
 Enter another user
 ENTER-ROOM spiderman peterpark c-programming

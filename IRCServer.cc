@@ -629,6 +629,8 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     Chatter * n = r->inRoom;
 
     if (n == NULL) {
+        const char * newLine = "/r/n";
+        write (fd, newLine, strlen(newLine));
         return;
     }
     
