@@ -629,8 +629,6 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     Chatter * n = r->inRoom;
 
     if (n == NULL) {
-        const char * msg = "ERROR (No room)\r\n";
-        write(fd, msg, strlen(msg));
         return;
     }
     

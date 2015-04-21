@@ -25,6 +25,7 @@ OK
 Enter room
 ENTER-ROOM superman clarkkent python-programming
 response:
+ERROR (No room)
 
 ENTER-ROOM aquaman xyz python-programming
 response:
