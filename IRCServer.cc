@@ -547,7 +547,7 @@ if (checked == 1) {
     r->msgnum++;
     write (fd, msg, strlen(msg));
 } else {
-    const char * rsp = "ERROR (User not in room)\r\n";
+    const char * rsp = "ERROR (user not in room)\r\n";
     write (fd, rsp, strlen(rsp));
 }
 }
