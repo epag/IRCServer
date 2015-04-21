@@ -518,7 +518,7 @@ IRCServer::sendMessage(int fd, const char * user, const char * password, const c
         return;
     }
     Room * r = referenceRoom;
-    while (strcmp(args, r->roomName) == 1) {
+    while (strcmp(args, r->roomName)) {
         r = r->nextRoom;
     }
     
