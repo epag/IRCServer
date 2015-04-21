@@ -574,6 +574,12 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
 
     if (checked == 1) {
     int i = (int) *args - '0';
+
+    if (r->Message[i] == NULL) {
+        const char * wordz = "NO-NEW-MESSAGES\r\n";
+        write (fd, wordz, strlen(wordz));
+        return;
+    }
     for (; i < 99; i++) {
         if (r->Message[i] == NULL ) {
             const char * newLine = "\r\n";
