@@ -50,6 +50,7 @@ public:
 	void sendMessage(int fd, const char * user, const char * password, const char * args, const char * message);
 	void getMessages(int fd, const char * user, const char * password, char * args, const char * message);
     void createRoom(int fd, const char * user, const char * password, const char * args);
+    void getRooms (int fd, const char * user, const char * password, const char * args);
 	void getUsersInRoom(int fd, const char * user, const char * password, const char * args);
 	void getAllUsers(int fd, const char * user, const char * password, const char * args);
 	void runServer(int port);

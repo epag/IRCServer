@@ -313,6 +313,9 @@ IRCServer::processRequest( int fd )
     else if (!strcmp(command, "CREATE-ROOM")) {
         createRoom(fd, user, password, args);
     }
+    else if (!strcmp(command, "GET-ROOMS")) {
+        getRooms (fd, user, password, args);
+    }
     else {
         const char * msg =  "UNKNOWN COMMAND\r\n";
         write(fd, msg, strlen(msg));
@@ -430,6 +433,25 @@ IRCServer::createRoom (int fd, const char * user, const char * password, const c
     newRoom->roomName = strdup(args);
     return;
 }
+
+void IRCServer::getRooms (int fd, const char * user, const char * password, const char * args) {
+    
+    Room * r = referenceRoom;
+    
+    const char * msg = "OK\r\n";
+    write (fd, msg, strlen(msg));
+
+    while (r != NULL) {
+        const char * roomName = strdup(r->roomName);
+        write (fd, roomName, strlen(roomName));
+        r = r->nextRoom;
+    }
+
+return;
+
+
+}
+
     void
 IRCServer::enterRoom(int fd, const char * user, const char * password, const char * args)
 {
