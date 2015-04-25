@@ -438,11 +438,12 @@ void IRCServer::getRooms (int fd, const char * user, const char * password, cons
     
     Room * r = referenceRoom;
     
-    const char * msg = "OK\r\n";
+    const char * msg = "*";
     write (fd, msg, strlen(msg));
 
     while (r != NULL) {
         const char * roomName = strdup(r->roomName);
+        write (fd, msg, 1);
         write (fd, roomName, strlen(roomName));
         r = r->nextRoom;
     }
