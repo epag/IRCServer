@@ -438,7 +438,7 @@ void IRCServer::getRooms (int fd, const char * user, const char * password, cons
     
     Room * r = referenceRoom;
     
-    const char * msg = "*";
+    const char * msg = "\n";
 
     while (r != NULL) {
         const char * roomName = strdup(r->roomName);
