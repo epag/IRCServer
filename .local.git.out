@@ -1556,3 +1556,5 @@ After doing this, you may fix the identity used for this commit with:
  6 files changed, 45 insertions(+), 9 deletions(-)
  delete mode 100644 .test2.txt.swp
  rewrite IRCServer (69%)
+[master 2b28872] Make IRCServer
+ 3 files changed, 6 insertions(+), 1 deletion(-)
