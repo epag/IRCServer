@@ -449,10 +449,9 @@ void IRCServer::getRooms (int fd, const char * user, const char * password, cons
         r = r->nextRoom;
     }
 
-    const char * end = '\0';
+    const char * end = "\0";
+   
     write (fd, end, strlen(end));
-
-    printf("HERE\n");
     return;
 
 
