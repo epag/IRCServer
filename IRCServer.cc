@@ -316,6 +316,9 @@ IRCServer::processRequest( int fd )
     else if (!strcmp(command, "GET-ROOMS")) {
         getRooms (fd, user, password, args);
     }
+    else if (!strcmp(command, "GET-ALL-USERS2")) {
+        getAllUsers2(fd, user, password, args);
+    }
     else {
         const char * msg =  "UNKNOWN COMMAND\r\n";
         write(fd, msg, strlen(msg));
@@ -700,6 +703,54 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
 
     void
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
+{
+    FILE * file = fopen("password.txt", "r");
+    char holder[100];
+    char name [50];
+    char NameHolder[50][50];
+    int i = 0;
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
+
+    while (fgets(holder, 100, file)) {
+        sscanf (holder, "%s\n", NameHolder[i]);
+        i++;
+    }
+    i--;
+    char temp[50];
+    for (int a = 0; a < i; a++) {
+        if (NameHolder[a][0] == NameHolder[a+1][0]) {
+            for (int b = 0; b < 3; b++) {
+                if (NameHolder[a][b] > NameHolder[a+1][b]) {
+                    sscanf(NameHolder[a], "%s\n", temp);
+                    sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+                    sscanf(temp, "%s\n", NameHolder[a+1]);
+                    a = -1;
+                    break;
+                }
+            }
+        }
+        if (NameHolder[a][0] > NameHolder[a+1][0]) {
+            sscanf(NameHolder[a], "%s\n", temp);
+            sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+            sscanf(temp, "%s\n", NameHolder[a+1]);
+            a = -1;
+        }
+    }
+
+
+    for (int a = 0; a < i+1; a++) {
+        const char * newline = "\r\n";
+        write (fd, NameHolder[a], strlen(NameHolder[a]));
+        write (fd, newline, strlen(newline));
+    }
+    const char * newline = "\r\n";
+    write (fd, newline, strlen(newline));
+    fclose(file);
+}
+void
+IRCServer::getAllUsers2(int fd, const char * user, const char * password,const  char * args)
 {
     FILE * file = fopen("password.txt", "r");
     char holder[100];

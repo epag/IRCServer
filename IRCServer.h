@@ -53,6 +53,7 @@ public:
     void getRooms (int fd, const char * user, const char * password, const char * args);
 	void getUsersInRoom(int fd, const char * user, const char * password, const char * args);
 	void getAllUsers(int fd, const char * user, const char * password, const char * args);
+	void getAllUsers2(int fd, const char * user, const char * password, const char * args);
 	void runServer(int port);
 };
 
