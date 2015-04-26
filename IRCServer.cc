@@ -445,6 +445,13 @@ void IRCServer::getRooms (int fd, const char * user, const char * password, cons
     Room * r = referenceRoom;
     
     const char * msg = "*";
+    
+    const char * null = "*empty";
+
+    if (r == NULL) {
+        write (fd, null, strlen(msg));
+        return;
+    }
 
     while (r != NULL) {
         const char * roomName = strdup(r->roomName);
