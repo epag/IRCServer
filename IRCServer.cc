@@ -789,13 +789,10 @@ IRCServer::getAllUsers2(int fd, const char * user, const char * password,const  
 
 
     for (int a = 0; a < i+1; a++) {
-        const char * newline = "\r\n";
+        const char * newline = "*";
         write (fd, NameHolder[a], strlen(NameHolder[a]));
         write (fd, newline, strlen(newline));
     }
-    const char * newline = "\r\n";
-    write (fd, newline, strlen(newline));
-    fclose(file);
 }
 
 
