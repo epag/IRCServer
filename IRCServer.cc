@@ -700,6 +700,61 @@ IRCServer::getUsersInRoom(int fd, const char * user, const char * password, cons
     const char * newline = "\r\n";
     write (fd, newline, strlen(newline));
 }
+void IRCServer::getUsersInRoom2(int fd, const char * user, const char * password, const char * args)
+{
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
+    Room * r = referenceRoom;
+    while (strcmp(args, r->roomName)) {
+        r = r->nextRoom;
+    }
+    Chatter * n = r->inRoom;
+
+    if (n == NULL) {
+        const char * newLine = "\r\n";
+        write (fd, newLine, strlen(newLine));
+        return;
+    }
+    
+    char NameHolder[50][50];
+    int i = 0;
+
+    while (n != NULL) {
+        char * name = strdup(n->name);
+        strcpy(NameHolder[i], name);
+        i++;
+        n = n->next;
+    }
+    i--;
+    char temp[50];
+
+    for (int a = 0; a < i; a++) {
+        if (NameHolder[a][0] == NameHolder[a+1][0]) {
+            for (int b = 0; b < 3; b++) {
+                if (NameHolder[a][b] > NameHolder[a+1][b]) {
+                    sscanf(NameHolder[a], "%s\n", temp);
+                    sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+                    sscanf(temp, "%s\n", NameHolder[a+1]);
+                    a = -1;
+                    break;
+                }
+            }
+        }
+        if (NameHolder[a][0] > NameHolder[a+1][0]) {
+            sscanf(NameHolder[a], "%s\n", temp);
+            sscanf(NameHolder[a+1], "%s\n", NameHolder[a]);
+            sscanf(temp, "%s\n", NameHolder[a+1]);
+            a = -1;
+        }
+    }
+    for (int a = 0; a < i+1; a++) {
+        const char * newline = "*";
+        write (fd, newline, strlen(newline));
+        write (fd, NameHolder[a], strlen(NameHolder[a]));
+
+    }
+}
 
     void
 IRCServer::getAllUsers(int fd, const char * user, const char * password,const  char * args)
