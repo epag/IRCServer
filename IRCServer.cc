@@ -446,7 +446,7 @@ void IRCServer::getRooms (int fd, const char * user, const char * password, cons
     
     const char * msg = "*";
     
-    const char * null = "*empty";
+    const char * null = "empty*";
 
     if (r == NULL) {
         write (fd, null, strlen(msg));
