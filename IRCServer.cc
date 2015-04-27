@@ -304,6 +304,9 @@ IRCServer::processRequest( int fd )
     else if (!strcmp(command, "GET-MESSAGES")) {
         getMessages(fd, user, password, args, message);
     }
+    else if (!strcmp(command, "GET-MESSAGES2")) {
+        getMessages(fd, user, password, args, message);
+    }
     else if (!strcmp(command, "GET-USERS-IN-ROOM")) {
         getUsersInRoom(fd, user, password, args);
     }
@@ -639,6 +642,58 @@ IRCServer::getMessages(int fd, const char * user, const char * password, char * 
         const char * newLine = "\r\n";
         write (fd, num, strlen(num));
         write (fd, space, strlen(space));
+        write (fd, usr, strlen(usr));
+        write (fd, space, strlen(space));
+        write (fd, msg, strlen(msg));
+        write (fd, newLine, strlen(newLine));
+    }
+    return;
+    } else {
+    const char * rsp = "ERROR (User not in room)\r\n";
+    write (fd, rsp, strlen(rsp));
+    return; 
+}
+
+}
+    void
+IRCServer::getMessages2(int fd, const char * user, const char * password, char * args, const char * message)
+{
+    if (checkPassword(fd, user, password) == false) {
+        return;
+    }
+    Room * r = referenceRoom;
+    while (strcmp(message, r->roomName)){
+        r = r->nextRoom;
+    }
+
+    Chatter * n = r->inRoom;
+    int checked = 0;
+    while (n != NULL) {
+        if (!strcmp(n->name, user)) {
+            checked = 1;
+        }
+        n = n->next;
+    }
+
+    if (checked == 1) {
+    int i = (int) *args - '0';
+
+    if (r->Message[i] == NULL) {
+        const char * wordz = "NO-NEW-MESSAGES\r\n";
+        write (fd, wordz, strlen(wordz));
+        return;
+    }
+    for (; i < 99; i++) {
+        if (r->Message[i] == NULL ) {
+            const char * newLine = "\r\n";
+            write (fd, newLine, strlen(newLine));
+            return;
+        }
+        char num[50];
+        const char * msg = strdup(r->Message[i]);
+        const char * usr = strdup(r->sender[i]);
+        const char * space = ":";
+        const char * newLine = "\r\n";
         write (fd, usr, strlen(usr));
         write (fd, space, strlen(space));
         write (fd, msg, strlen(msg));
