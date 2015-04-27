@@ -308,6 +308,7 @@ IRCServer::processRequest( int fd )
         getMessages2(fd, user, password, args, message);
     }
     else if (!strcmp(command, "GET-USERS-IN-ROOM")) {
+        message[0] = '\0';
         getUsersInRoom(fd, user, password, args);
     }
     else if (!strcmp(command, "GET-USERS-IN-ROOM2")) {
