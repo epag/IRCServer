@@ -858,6 +858,10 @@ IRCServer::getAllUsers2(int fd, const char * user, const char * password,const  
         write (fd, newline, strlen(newline));
         write (fd, NameHolder[a], strlen(NameHolder[a]));
     }
+    const char * end = "*\0";
+   
+    write (fd, end, strlen(end));
+    return;
 }
 
 
