@@ -694,11 +694,9 @@ IRCServer::getMessages2(int fd, const char * user, const char * password, char *
         const char * msg = strdup(r->Message[i]);
         const char * usr = strdup(r->sender[i]);
         const char * space = ": ";
-        const char * newLine = "\r\n";
         write (fd, usr, strlen(usr));
         write (fd, space, strlen(space));
         write (fd, msg, strlen(msg));
-        write (fd, newLine, strlen(newLine));
     }
     return;
     } else {
